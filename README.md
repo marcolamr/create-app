@@ -1,159 +1,225 @@
-# Turborepo starter
+# @madda/create-app
 
-This Turborepo starter is maintained by the Turborepo core team.
+> O jeito mais rápido de começar um app full stack com a **madda stack** — typesafe, moderno e pronto pra produção.
 
-## Using this example
+[![npm version](https://img.shields.io/npm/v/@madda/create-app?label=%40madda%2Fcreate-app)](https://www.npmjs.com/package/@madda/create-app)
+[![Node.js](https://img.shields.io/badge/node-%3E%3D18-339933?logo=node.js&logoColor=white)](https://nodejs.org/)
+[![pnpm](https://img.shields.io/badge/pnpm-9-F69220?logo=pnpm&logoColor=white)](https://pnpm.io/)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](#licença)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.9-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 
-Run the following command:
-
-```sh
-npx create-turbo@latest
+```bash
+pnpm create @madda/create-app
+# ou
+npx @madda/create-app@latest
+# ou
+npm create @madda/create-app@latest
 ```
 
-## What's inside?
+---
 
-This Turborepo includes the following packages/apps:
+## O que é?
 
-### Apps and Packages
+**@madda/create-app** é o CLI oficial da org [**madda**](https://www.npmjs.com/org/madda) para gerar projetos [Next.js](https://nextjs.org/) com a **madda stack** — uma combinação opinativa de ferramentas para apps web full stack com foco em DX, type-safety e convenções que escalam.
 
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
+Inspirado no fluxo do [create-t3-app](https://github.com/t3-oss/create-t3-app), montado do zero para o ecossistema **madda**.
 
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
+### O que vem no template
 
-### Utilities
+| Camada | Tecnologia |
+|--------|------------|
+| Framework | [Next.js 16](https://nextjs.org/) (App Router) |
+| Linguagem | [TypeScript](https://www.typescriptlang.org/) |
+| Estilo *(opcional)* | [Tailwind CSS](https://tailwindcss.com/) |
+| ORM *(opcional)* | [Drizzle](https://orm.drizzle.team/) |
+| Auth *(opcional)* | [Better Auth](https://www.better-auth.com/) |
+| Banco *(opcional)* | PostgreSQL |
+| Env | [@t3-oss/env-nextjs](https://env.t3.gg/) + [Zod](https://zod.dev/) |
+| Lint/format *(opcional)* | ESLint + Prettier |
 
-This Turborepo has some additional tools already setup for you:
+---
 
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
+## Getting started
 
-### Build
+### Pré-requisitos
 
-To build all apps and packages, run the following command:
+- **Node.js** 18+
+- Um package manager: **pnpm** (recomendado), npm, yarn ou bun
+- Conta npm com acesso à org **madda** *(apenas para quem for publicar o CLI)*
 
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended):
+### Criar um projeto
 
-```sh
-cd my-turborepo
-turbo build
+```bash
+pnpm create @madda/create-app meu-app
+cd meu-app
+pnpm dev
 ```
 
-Without global `turbo`, use your package manager:
+Sem prompts — usa os defaults:
 
-```sh
-cd my-turborepo
-npx turbo build
-pnpm dlx turbo build
-pnpm exec turbo build
+```bash
+pnpm create @madda/create-app meu-app -- --default
 ```
 
-You can build a specific package by using a [filter](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters):
+### Fluxo interativo
 
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed:
+O CLI pergunta o que você quer incluir:
 
-```sh
-turbo build --filter=docs
+```
+◆  What will your project be called?
+◆  Will you be using TypeScript or JavaScript?
+◆  Will you be using Tailwind CSS for styling?
+◆  What authentication provider would you like to use?
+◆  What database ORM would you like to use?
+◆  Would you like to use ESLint and Prettier?
+◆  Should we initialize a Git repository?
+◆  Should we run 'pnpm install' for you?
+◆  What import alias would you like to use?  →  @/
 ```
 
-Without global `turbo`:
+No final, o CLI instala dependências, formata o código, inicializa git (se pedido) e mostra os próximos passos.
 
-```sh
-npx turbo build --filter=docs
-pnpm exec turbo build --filter=docs
-pnpm exec turbo build --filter=docs
+---
+
+## CLI
+
+### Uso
+
+```bash
+create-app [dir] [options]
 ```
 
-### Develop
+> Ao instalar via `npx @madda/create-app`, o binário disponível é `create-app`.
 
-To develop all apps and packages, run the following command:
+### Opções
 
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended):
+| Flag | Descrição |
+|------|-----------|
+| `[dir]` | Nome/pasta do projeto |
+| `-y, --default` | Pula prompts e usa defaults |
+| `--noGit` | Não inicializa repositório git |
+| `--noInstall` | Não roda install do package manager |
+| `--dbProvider [provider]` | Provider do banco (`postgres`) |
+| `-v, --version` | Versão do CLI |
+| `-h, --help` | Ajuda |
 
-```sh
-cd my-turborepo
-turbo dev
+### Exemplos
+
+```bash
+# Projeto na pasta atual
+pnpm create @madda/create-app .
+
+# Sem git e sem install (útil em CI)
+pnpm create @madda/create-app meu-app -- --noGit --noInstall
 ```
 
-Without global `turbo`, use your package manager:
+---
 
-```sh
-cd my-turborepo
-npx turbo dev
-pnpm exec turbo dev
-pnpm exec turbo dev
+## Estrutura gerada
+
+```
+meu-app/
+├── src/
+│   ├── app/           # App Router (Next.js)
+│   ├── env.js         # Variáveis de ambiente validadas
+│   └── styles/        # CSS global
+├── public/
+├── next.config.ts
+├── tsconfig.json
+└── package.json
 ```
 
-You can develop a specific package by using a [filter](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters):
+Com **Drizzle**, **Better Auth**, **Tailwind** e **ESLint**, arquivos extras são adicionados automaticamente.
 
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed:
+---
 
-```sh
-turbo dev --filter=web
+## Desenvolvimento deste repositório
+
+Monorepo gerenciado com [Turborepo](https://turbo.build/) + [pnpm workspaces](https://pnpm.io/workspaces).
+
+```
+create-md-app/              # repo local (nome da pasta pode variar)
+├── apps/cli/               # @madda/create-app (publicável)
+├── packages/
+│   ├── eslint-config/      # @repo/eslint-config
+│   ├── prettier-config/    # @repo/prettier-config
+│   └── typescript-config/  # @repo/typescript-config
+└── _apps/                  # referência local (ignorado pelo git)
 ```
 
-Without global `turbo`:
+### Setup
 
-```sh
-npx turbo dev --filter=web
-pnpm exec turbo dev --filter=web
-pnpm exec turbo dev --filter=web
+```bash
+git clone <seu-repo>
+cd create-md-app
+pnpm install
 ```
 
-### Remote Caching
+### Scripts principais
 
-> [!TIP]
-> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
+| Comando | Descrição |
+|---------|-----------|
+| `pnpm dev` | Dev do CLI com hot reload |
+| `pnpm build:cli` | Build do `@madda/create-app` |
+| `pnpm --filter @madda/create-app start` | Roda o CLI buildado |
+| `pnpm lint` | ESLint no monorepo |
+| `pnpm check-types` | Typecheck |
+| `pnpm format` | Prettier no monorepo |
 
-Turborepo can use a technique known as [Remote Caching](https://turborepo.dev/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
+### Rodar o CLI localmente
 
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended):
-
-```sh
-cd my-turborepo
-turbo login
+```bash
+pnpm build:cli
+pnpm --filter @madda/create-app start
+# ou em dev
+pnpm --filter @madda/create-app dev
 ```
 
-Without global `turbo`, use your package manager:
+Testar em outra pasta:
 
-```sh
-cd my-turborepo
-npx turbo login
-pnpm exec turbo login
-pnpm exec turbo login
+```bash
+node apps/cli/dist/index.js meu-teste
 ```
 
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
+### Releases (org madda no npm)
 
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
+```bash
+# 1. Registrar mudança
+pnpm changeset
 
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed:
+# 2. Aplicar bump de versão + CHANGELOG
+pnpm release
 
-```sh
-turbo link
+# 3. Publicar na org @madda
+pnpm pub:release
+# ou beta
+pnpm pub:beta
 ```
 
-Without global `turbo`:
+Publicação requer login npm com permissão na org **madda** e `publishConfig.access: public` (já configurado).
 
-```sh
-npx turbo link
-pnpm exec turbo link
-pnpm exec turbo link
-```
+---
 
-## Useful Links
+## Stack técnica do CLI
 
-Learn more about the power of Turborepo:
+- [@clack/prompts](https://github.com/bombshell-dev/clack) — prompts interativos
+- [Commander](https://github.com/tj/commander.js) — parsing de args
+- [tsup](https://tsup.egoist.dev/) — bundler
+- [Changesets](https://github.com/changesets/changesets) — releases
 
-- [Tasks](https://turborepo.dev/docs/crafting-your-repository/running-tasks)
-- [Caching](https://turborepo.dev/docs/crafting-your-repository/caching)
-- [Remote Caching](https://turborepo.dev/docs/core-concepts/remote-caching)
-- [Filtering](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters)
-- [Configuration Options](https://turborepo.dev/docs/reference/configuration)
-- [CLI Usage](https://turborepo.dev/docs/reference/command-line-reference)
+---
+
+## Contribuindo
+
+1. Fork + branch
+2. `pnpm install`
+3. Faça suas alterações
+4. `pnpm lint && pnpm check-types && pnpm build:cli`
+5. `pnpm changeset` (se for release)
+6. Abra um PR
+
+---
+
+## Licença
+
+MIT — veja `apps/cli/package.json`.

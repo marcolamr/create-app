@@ -1,0 +1,14 @@
+# Ignore artifacts: 
+/dist
+/.next
+/.claude
+/_planning
+/node_modules
+/.source
+/coverage
+
+# Ignore files: 
+/public
+package.json
+package.lock.json
+pnpm-lock.yaml
