@@ -1,14 +1,19 @@
 {
   "name": "create-md-app",
   "private": true,
+  "prettier": "@repo/prettier-config",
   "scripts": {
     "build": "turbo run build",
+    "build:cli": "turbo --filter=create-md-app build",
     "dev": "turbo run dev",
     "lint": "turbo run lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "lint:fix": "turbo run lint:fix",
+    "format": "prettier --write \"**/*.{ts,tsx,md,json}\"",
+    "format:check": "turbo run format:check",
     "check-types": "turbo run check-types"
   },
   "devDependencies": {
+    "@repo/prettier-config": "workspace:*",
     "prettier": "^3.7.4",
     "turbo": "^2.9.14",
     "typescript": "5.9.2"

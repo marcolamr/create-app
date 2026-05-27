@@ -8,7 +8,21 @@
       "outputs": [".next/**", "!.next/cache/**"]
     },
     "lint": {
-      "dependsOn": ["^lint"]
+      "dependsOn": ["^lint"],
+      "cache": false
+    },
+    "lint:fix": {
+      "dependsOn": ["^lint"],
+      "cache": false
+    },
+    "format": {
+      "cache": false
+    },
+    "format:check": {
+      "cache": false
+    },
+    "clean": {
+      "cache": false
     },
     "check-types": {
       "dependsOn": ["^check-types"]
@@ -16,6 +30,9 @@
     "dev": {
       "cache": false,
       "persistent": true
+    },
+    "start": {
+      "dependsOn": ["^build"]
     }
   }
 }
