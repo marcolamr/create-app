@@ -5,7 +5,7 @@ import { PKG_ROOT } from '@/constants';
 import { DatabaseProvider, PkgInstallerMap } from '@/installers/types';
 import { getUserPkgManager } from '@/utils/getter';
 
-import { selectAppFile, selectIndexFile } from './boilerplate';
+import { selectAppFile, selectLayoutFile } from './boilerplate';
 import { installPackages } from './install-packages';
 import { scaffoldProject } from './scaffold-project';
 
@@ -49,8 +49,8 @@ export const createProject = async ({
     databaseProvider,
   });
 
+  selectLayoutFile({ projectDir, packages });
   selectAppFile({ projectDir, packages });
-  selectIndexFile({ projectDir, packages });
 
   // If no tailwind, select use css modules
   if (!packages.tailwind.inUse) {

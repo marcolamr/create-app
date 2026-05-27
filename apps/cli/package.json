@@ -1,6 +1,6 @@
 {
   "name": "@madda/create-app",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Create web applications with the madda stack",
   "license": "MIT",
   "type": "module",

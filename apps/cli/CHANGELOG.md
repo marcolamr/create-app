@@ -1,5 +1,11 @@
 # @madda/create-app
 
+## 1.0.3
+
+### Patch Changes
+
+- Removing a bug in scaffolding that generated the page folder in Next.js
+
 ## 1.0.2
 
 ### Patch Changes

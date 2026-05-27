@@ -26,16 +26,16 @@ Inspirado no fluxo do [create-t3-app](https://github.com/t3-oss/create-t3-app), 
 
 ### O que vem no template
 
-| Camada | Tecnologia |
-|--------|------------|
-| Framework | [Next.js 16](https://nextjs.org/) (App Router) |
-| Linguagem | [TypeScript](https://www.typescriptlang.org/) |
-| Estilo *(opcional)* | [Tailwind CSS](https://tailwindcss.com/) |
-| ORM *(opcional)* | [Drizzle](https://orm.drizzle.team/) |
-| Auth *(opcional)* | [Better Auth](https://www.better-auth.com/) |
-| Banco *(opcional)* | PostgreSQL |
-| Env | [@t3-oss/env-nextjs](https://env.t3.gg/) + [Zod](https://zod.dev/) |
-| Lint/format *(opcional)* | ESLint + Prettier |
+| Camada                   | Tecnologia                                                         |
+| ------------------------ | ------------------------------------------------------------------ |
+| Framework                | [Next.js 16](https://nextjs.org/) (App Router)                     |
+| Linguagem                | [TypeScript](https://www.typescriptlang.org/)                      |
+| Estilo _(opcional)_      | [Tailwind CSS](https://tailwindcss.com/)                           |
+| ORM _(opcional)_         | [Drizzle](https://orm.drizzle.team/)                               |
+| Auth _(opcional)_        | [Better Auth](https://www.better-auth.com/)                        |
+| Banco _(opcional)_       | PostgreSQL                                                         |
+| Env                      | [@t3-oss/env-nextjs](https://env.t3.gg/) + [Zod](https://zod.dev/) |
+| Lint/format _(opcional)_ | ESLint + Prettier                                                  |
 
 ---
 
@@ -45,7 +45,7 @@ Inspirado no fluxo do [create-t3-app](https://github.com/t3-oss/create-t3-app), 
 
 - **Node.js** 18+
 - Um package manager: **pnpm** (recomendado), npm, yarn ou bun
-- Conta npm com acesso à org **madda** *(apenas para quem for publicar o CLI)*
+- Conta npm com acesso à org **madda** _(apenas para quem for publicar o CLI)_
 
 ### Criar um projeto
 
@@ -93,15 +93,15 @@ create-app [dir] [options]
 
 ### Opções
 
-| Flag | Descrição |
-|------|-----------|
-| `[dir]` | Nome/pasta do projeto |
-| `-y, --default` | Pula prompts e usa defaults |
-| `--noGit` | Não inicializa repositório git |
-| `--noInstall` | Não roda install do package manager |
-| `--dbProvider [provider]` | Provider do banco (`postgres`) |
-| `-v, --version` | Versão do CLI |
-| `-h, --help` | Ajuda |
+| Flag                      | Descrição                           |
+| ------------------------- | ----------------------------------- |
+| `[dir]`                   | Nome/pasta do projeto               |
+| `-y, --default`           | Pula prompts e usa defaults         |
+| `--noGit`                 | Não inicializa repositório git      |
+| `--noInstall`             | Não roda install do package manager |
+| `--dbProvider [provider]` | Provider do banco (`postgres`)      |
+| `-v, --version`           | Versão do CLI                       |
+| `-h, --help`              | Ajuda                               |
 
 ### Exemplos
 
@@ -157,14 +157,14 @@ pnpm install
 
 ### Scripts principais
 
-| Comando | Descrição |
-|---------|-----------|
-| `pnpm dev` | Dev do CLI com hot reload |
-| `pnpm build:cli` | Build do `@madda/create-app` |
-| `pnpm --filter @madda/create-app start` | Roda o CLI buildado |
-| `pnpm lint` | ESLint no monorepo |
-| `pnpm check-types` | Typecheck |
-| `pnpm format` | Prettier no monorepo |
+| Comando                                 | Descrição                    |
+| --------------------------------------- | ---------------------------- |
+| `pnpm dev`                              | Dev do CLI com hot reload    |
+| `pnpm build:cli`                        | Build do `@madda/create-app` |
+| `pnpm --filter @madda/create-app start` | Roda o CLI buildado          |
+| `pnpm lint`                             | ESLint no monorepo           |
+| `pnpm check-types`                      | Typecheck                    |
+| `pnpm format`                           | Prettier no monorepo         |
 
 ### Rodar o CLI localmente
 
