@@ -8,7 +8,6 @@
   "baseBranch": "main",
   "updateInternalDependencies": "patch",
   "ignore": [
-    "@madda/root",
     "@repo/eslint-config",
     "@repo/prettier-config",
     "@repo/typescript-config"
