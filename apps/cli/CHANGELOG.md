@@ -1,5 +1,11 @@
 # @madda/create-app
 
+## 1.0.2
+
+### Patch Changes
+
+- Fixes a minor bug
+
 ## 1.0.1
 
 ### Patch Changes
