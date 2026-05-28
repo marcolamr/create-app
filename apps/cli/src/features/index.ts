@@ -1,6 +1,7 @@
 import type { Project } from '../core/project.js';
 import type { Feature } from '../core/types.js';
 import { authFeature } from './auth.js';
+import { baseFeature } from './base.js';
 import { drizzleFeature } from './drizzle.js';
 import { envFeature } from './env.js';
 import { eslintFeature } from './eslint.js';
@@ -10,6 +11,7 @@ import { uiFeature } from './ui.js';
 
 /** Order matters: later features may depend on earlier ones. */
 export const FEATURES: Feature[] = [
+  baseFeature,
   serverFeature,
   drizzleFeature,
   authFeature,

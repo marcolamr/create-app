@@ -13,8 +13,8 @@ export const eslintFeature: Feature = {
       'prettier',
       'eslint',
       'eslint-config-next',
-      'typescript-eslint',
-      '@eslint/eslintrc',
+      'eslint-plugin-simple-import-sort',
+      'eslint-plugin-unused-imports',
     );
 
     if (project.has('tailwind')) {

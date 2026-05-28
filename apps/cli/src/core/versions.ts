@@ -15,14 +15,13 @@ export const DEP_VERSIONS = {
   postcss: '^8.5.15',
   '@tailwindcss/postcss': '^4.3.0',
   prettier: '^3.8.3',
-  '@eslint/eslintrc': '^3.3.5',
   'prettier-plugin-tailwindcss': '^0.8.0',
   eslint: '^9',
   'eslint-config-next': '^16.2.6',
   'eslint-plugin-drizzle': '^0.2.3',
   'eslint-plugin-simple-import-sort': '^13.0.0',
   'eslint-plugin-unused-imports': '^4.4.1',
-  'typescript-eslint': '^8.60.0',
+  'babel-plugin-react-compiler': '1.0.0',
 } as const;
 
 export type DepName = keyof typeof DEP_VERSIONS;
