@@ -1,6 +1,6 @@
 {
   "name": "@madda/root",
-  "description": "Monorepo for @madda/create-app — scaffold web apps with the madda stack",
+  "description": "Monorepo for @madda/app — scaffold web apps with the madda stack",
   "author": "Marcos Roberto <marcola.mr@gmail.com> (https://github.com/marcolamr)",
   "maintainers": [
     "Marcos Roberto <marcola.mr@gmail.com> (https://github.com/marcolamr)"
@@ -8,7 +8,7 @@
   "private": true,
   "prettier": "@repo/prettier-config",
   "keywords": [
-    "@madda/create-app",
+    "@madda/app",
     "madda",
     "madda-stack",
     "next.js",
@@ -17,7 +17,7 @@
   ],
   "scripts": {
     "build": "turbo run build",
-    "build:cli": "turbo --filter=@madda/create-app build",
+    "build:cli": "turbo --filter=@madda/app build",
     "dev": "turbo run dev",
     "lint": "turbo run lint",
     "lint:fix": "turbo run lint:fix",
@@ -26,8 +26,8 @@
     "check-types": "turbo run check-types",
     "changeset": "changeset",
     "release": "changeset version",
-    "pub:beta": "pnpm --filter @madda/create-app pub:beta",
-    "pub:release": "pnpm --filter @madda/create-app pub:release"
+    "pub:beta": "pnpm --filter @madda/app pub:beta",
+    "pub:release": "pnpm --filter @madda/app pub:release"
   },
   "devDependencies": {
     "@changesets/cli": "^2.29.8",

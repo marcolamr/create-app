@@ -1,26 +1,26 @@
-# @madda/create-app
+# @madda/app
 
 > O jeito mais rápido de começar um app full stack com a **madda stack** — typesafe, moderno e pronto pra produção.
 
-[![npm version](https://img.shields.io/npm/v/@madda/create-app?label=%40madda%2Fcreate-app)](https://www.npmjs.com/package/@madda/create-app)
+[![npm version](https://img.shields.io/npm/v/@madda/app?label=%40madda%2Fapp)](https://www.npmjs.com/package/@madda/app)
 [![Node.js](https://img.shields.io/badge/node-%3E%3D18-339933?logo=node.js&logoColor=white)](https://nodejs.org/)
 [![pnpm](https://img.shields.io/badge/pnpm-9-F69220?logo=pnpm&logoColor=white)](https://pnpm.io/)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](#licença)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.9-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 
 ```bash
-pnpm create @madda/create-app
+pnpm create @madda/app
 # ou
-npx @madda/create-app@latest
+npx @madda/app@latest
 # ou
-npm create @madda/create-app@latest
+npm create @madda/app@latest
 ```
 
 ---
 
 ## O que é?
 
-**@madda/create-app** é o CLI oficial da org [**madda**](https://www.npmjs.com/org/madda) para gerar projetos [Next.js](https://nextjs.org/) com a **madda stack** — uma combinação opinativa de ferramentas para apps web full stack com foco em DX, type-safety e convenções que escalam.
+**@madda/app** é o CLI oficial da org [**madda**](https://www.npmjs.com/org/madda) para gerar projetos [Next.js](https://nextjs.org/) com a **madda stack** — uma combinação opinativa de ferramentas para apps web full stack com foco em DX, type-safety e convenções que escalam.
 
 Inspirado no fluxo do [create-t3-app](https://github.com/t3-oss/create-t3-app), montado do zero para o ecossistema **madda**.
 
@@ -50,7 +50,7 @@ Inspirado no fluxo do [create-t3-app](https://github.com/t3-oss/create-t3-app), 
 ### Criar um projeto
 
 ```bash
-pnpm create @madda/create-app meu-app
+pnpm create @madda/app meu-app
 cd meu-app
 pnpm dev
 ```
@@ -58,7 +58,7 @@ pnpm dev
 Sem prompts — usa os defaults:
 
 ```bash
-pnpm create @madda/create-app meu-app -- --default
+pnpm create @madda/app meu-app -- --default
 ```
 
 ### Fluxo interativo
@@ -86,10 +86,10 @@ No final, o CLI instala dependências, formata o código, inicializa git (se ped
 ### Uso
 
 ```bash
-create-app [dir] [options]
+madda-app [dir] [options]
 ```
 
-> Ao instalar via `npx @madda/create-app`, o binário disponível é `create-app`.
+> Ao instalar via `npx @madda/app`, o binário disponível é `madda-app`.
 
 ### Opções
 
@@ -107,10 +107,10 @@ create-app [dir] [options]
 
 ```bash
 # Projeto na pasta atual
-pnpm create @madda/create-app .
+pnpm create @madda/app .
 
 # Sem git e sem install (útil em CI)
-pnpm create @madda/create-app meu-app -- --noGit --noInstall
+pnpm create @madda/app meu-app -- --noGit --noInstall
 ```
 
 ---
@@ -139,7 +139,7 @@ Monorepo gerenciado com [Turborepo](https://turbo.build/) + [pnpm workspaces](ht
 
 ```
 create-md-app/              # repo local (nome da pasta pode variar)
-├── apps/cli/               # @madda/create-app (publicável)
+├── apps/cli/               # @madda/app (publicável)
 ├── packages/
 │   ├── eslint-config/      # @repo/eslint-config
 │   ├── prettier-config/    # @repo/prettier-config
@@ -160,8 +160,8 @@ pnpm install
 | Comando | Descrição |
 |---------|-----------|
 | `pnpm dev` | Dev do CLI com hot reload |
-| `pnpm build:cli` | Build do `@madda/create-app` |
-| `pnpm --filter @madda/create-app start` | Roda o CLI buildado |
+| `pnpm build:cli` | Build do `@madda/app` |
+| `pnpm --filter @madda/app start` | Roda o CLI buildado |
 | `pnpm lint` | ESLint no monorepo |
 | `pnpm check-types` | Typecheck |
 | `pnpm format` | Prettier no monorepo |
@@ -170,9 +170,9 @@ pnpm install
 
 ```bash
 pnpm build:cli
-pnpm --filter @madda/create-app start
+pnpm --filter @madda/app start
 # ou em dev
-pnpm --filter @madda/create-app dev
+pnpm --filter @madda/app dev
 ```
 
 Testar em outra pasta:

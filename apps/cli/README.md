@@ -1,225 +1,195 @@
-# @madda/create-app
+# @madda/app
 
-> O jeito mais rápido de começar um app full stack com a **madda stack** — typesafe, moderno e pronto pra produção.
+Scaffold a **Next.js** full-stack app with the **madda stack** — TypeScript, optional Tailwind, Drizzle, Better Auth, and more.
 
-[![npm version](https://img.shields.io/npm/v/@madda/create-app?label=%40madda%2Fcreate-app)](https://www.npmjs.com/package/@madda/create-app)
-[![Node.js](https://img.shields.io/badge/node-%3E%3D18-339933?logo=node.js&logoColor=white)](https://nodejs.org/)
-[![pnpm](https://img.shields.io/badge/pnpm-9-F69220?logo=pnpm&logoColor=white)](https://pnpm.io/)
-[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](#licença)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.9-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![npm version](https://img.shields.io/npm/v/@madda/app?label=%40madda%2Fapp)](https://www.npmjs.com/package/@madda/app)
+
+---
+
+## English
+
+### Quick start
+
+**Requirements:** Node.js 18+ and npm, pnpm, yarn, or bun.
 
 ```bash
-pnpm create @madda/create-app
-# ou
-npx @madda/create-app@latest
-# ou
-npm create @madda/create-app@latest
+pnpm create @madda/app my-app
+cd my-app
+pnpm dev
+```
+
+Other package managers:
+
+```bash
+npx @madda/app@latest my-app
+npm create @madda/app@latest my-app
+```
+
+Skip prompts (full default stack: Tailwind, ESLint, Better Auth, Drizzle):
+
+```bash
+pnpm create @madda/app my-app -- --default
+```
+
+Create in the current folder:
+
+```bash
+pnpm create @madda/app . -- --default
+```
+
+### What you get (default stack)
+
+| Piece          | Tech                              |
+| -------------- | --------------------------------- |
+| Framework      | Next.js 16 (App Router)           |
+| Language       | TypeScript                        |
+| Styling        | Tailwind CSS v4                   |
+| Database       | PostgreSQL + Drizzle ORM          |
+| Auth           | Better Auth                       |
+| Env validation | `@t3-oss/env-nextjs` + Zod        |
+| Lint / format  | ESLint + Prettier                 |
+| Server utils   | Logger (Pino), errors, IP helpers |
+
+The CLI also generates `.env` / `.env.example`, a `start-database.sh` script, and `db:*` npm scripts.
+
+### Interactive mode
+
+If you run without `--default`, the CLI asks:
+
+- Project name
+- Tailwind CSS?
+- ESLint + Prettier?
+- Better Auth?
+- Drizzle ORM (PostgreSQL)?
+- Initialize git?
+- Run install?
+
+### CLI options
+
+```bash
+madda-app [dir] [options]
+```
+
+| Option                   | Description                              |
+| ------------------------ | ---------------------------------------- |
+| `[dir]`                  | Project folder name (default: `my-app`)  |
+| `--default`              | Skip prompts; use the full default stack |
+| `--no-git`               | Do not run `git init`                    |
+| `--no-install`           | Do not install dependencies              |
+| `--import-alias <alias>` | Import alias (default: `@/`)             |
+| `-v, --version`          | Show CLI version                         |
+| `-h, --help`             | Show help                                |
+
+### After scaffolding (with Drizzle)
+
+```bash
+./start-database.sh   # local Postgres via Docker/Podman
+pnpm db:push          # push schema to the database
+pnpm dev
+```
+
+### Outdated CLI warning
+
+If your local CLI version differs from the latest on npm, a yellow warning is printed before scaffolding. Update with:
+
+```bash
+npx @madda/app@latest
 ```
 
 ---
 
-## O que é?
+## Português
 
-**@madda/create-app** é o CLI oficial da org [**madda**](https://www.npmjs.com/org/madda) para gerar projetos [Next.js](https://nextjs.org/) com a **madda stack** — uma combinação opinativa de ferramentas para apps web full stack com foco em DX, type-safety e convenções que escalam.
+### Início rápido
 
-Inspirado no fluxo do [create-t3-app](https://github.com/t3-oss/create-t3-app), montado do zero para o ecossistema **madda**.
-
-### O que vem no template
-
-| Camada                   | Tecnologia                                                         |
-| ------------------------ | ------------------------------------------------------------------ |
-| Framework                | [Next.js 16](https://nextjs.org/) (App Router)                     |
-| Linguagem                | [TypeScript](https://www.typescriptlang.org/)                      |
-| Estilo _(opcional)_      | [Tailwind CSS](https://tailwindcss.com/)                           |
-| ORM _(opcional)_         | [Drizzle](https://orm.drizzle.team/)                               |
-| Auth _(opcional)_        | [Better Auth](https://www.better-auth.com/)                        |
-| Banco _(opcional)_       | PostgreSQL                                                         |
-| Env                      | [@t3-oss/env-nextjs](https://env.t3.gg/) + [Zod](https://zod.dev/) |
-| Lint/format _(opcional)_ | ESLint + Prettier                                                  |
-
----
-
-## Getting started
-
-### Pré-requisitos
-
-- **Node.js** 18+
-- Um package manager: **pnpm** (recomendado), npm, yarn ou bun
-- Conta npm com acesso à org **madda** _(apenas para quem for publicar o CLI)_
-
-### Criar um projeto
+**Requisitos:** Node.js 18+ e npm, pnpm, yarn ou bun.
 
 ```bash
-pnpm create @madda/create-app meu-app
+pnpm create @madda/app meu-app
 cd meu-app
 pnpm dev
 ```
 
-Sem prompts — usa os defaults:
+Outros gerenciadores:
 
 ```bash
-pnpm create @madda/create-app meu-app -- --default
+npx @madda/app@latest meu-app
+npm create @madda/app@latest meu-app
 ```
 
-### Fluxo interativo
+Sem prompts (stack padrão completa: Tailwind, ESLint, Better Auth, Drizzle):
 
-O CLI pergunta o que você quer incluir:
-
-```
-◆  What will your project be called?
-◆  Will you be using TypeScript or JavaScript?
-◆  Will you be using Tailwind CSS for styling?
-◆  What authentication provider would you like to use?
-◆  What database ORM would you like to use?
-◆  Would you like to use ESLint and Prettier?
-◆  Should we initialize a Git repository?
-◆  Should we run 'pnpm install' for you?
-◆  What import alias would you like to use?  →  @/
+```bash
+pnpm create @madda/app meu-app -- --default
 ```
 
-No final, o CLI instala dependências, formata o código, inicializa git (se pedido) e mostra os próximos passos.
+Na pasta atual:
+
+```bash
+pnpm create @madda/app . -- --default
+```
+
+### O que vem no projeto (stack padrão)
+
+| Camada                | Tecnologia                 |
+| --------------------- | -------------------------- |
+| Framework             | Next.js 16 (App Router)    |
+| Linguagem             | TypeScript                 |
+| Estilo                | Tailwind CSS v4            |
+| Banco                 | PostgreSQL + Drizzle ORM   |
+| Auth                  | Better Auth                |
+| Variáveis de ambiente | `@t3-oss/env-nextjs` + Zod |
+| Lint / format         | ESLint + Prettier          |
+| Utilitários server    | Logger (Pino), erros, IP   |
+
+Também são gerados `.env`, `.env.example`, `start-database.sh` e scripts `db:*`.
+
+### Modo interativo
+
+Sem `--default`, o CLI pergunta:
+
+- Nome do projeto
+- Tailwind CSS?
+- ESLint + Prettier?
+- Better Auth?
+- Drizzle ORM (PostgreSQL)?
+- Inicializar git?
+- Rodar install?
+
+### Opções do CLI
+
+```bash
+madda-app [dir] [opções]
+```
+
+| Opção                    | Descrição                                 |
+| ------------------------ | ----------------------------------------- |
+| `[dir]`                  | Nome da pasta (padrão: `my-app`)          |
+| `--default`              | Pula prompts; usa a stack padrão completa |
+| `--no-git`               | Não executa `git init`                    |
+| `--no-install`           | Não instala dependências                  |
+| `--import-alias <alias>` | Alias de import (padrão: `@/`)            |
+| `-v, --version`          | Versão do CLI                             |
+| `-h, --help`             | Ajuda                                     |
+
+### Depois de criar (com Drizzle)
+
+```bash
+./start-database.sh   # Postgres local (Docker/Podman)
+pnpm db:push          # aplica o schema no banco
+pnpm dev
+```
+
+### Aviso de versão desatualizada
+
+Se a versão local do CLI for diferente da última no npm, um aviso amarelo aparece antes do scaffold. Atualize com:
+
+```bash
+npx @madda/app@latest
+```
 
 ---
 
-## CLI
+## License
 
-### Uso
-
-```bash
-create-app [dir] [options]
-```
-
-> Ao instalar via `npx @madda/create-app`, o binário disponível é `create-app`.
-
-### Opções
-
-| Flag                      | Descrição                           |
-| ------------------------- | ----------------------------------- |
-| `[dir]`                   | Nome/pasta do projeto               |
-| `-y, --default`           | Pula prompts e usa defaults         |
-| `--noGit`                 | Não inicializa repositório git      |
-| `--noInstall`             | Não roda install do package manager |
-| `--dbProvider [provider]` | Provider do banco (`postgres`)      |
-| `-v, --version`           | Versão do CLI                       |
-| `-h, --help`              | Ajuda                               |
-
-### Exemplos
-
-```bash
-# Projeto na pasta atual
-pnpm create @madda/create-app .
-
-# Sem git e sem install (útil em CI)
-pnpm create @madda/create-app meu-app -- --noGit --noInstall
-```
-
----
-
-## Estrutura gerada
-
-```
-meu-app/
-├── src/
-│   ├── app/           # App Router (Next.js)
-│   ├── env.js         # Variáveis de ambiente validadas
-│   └── styles/        # CSS global
-├── public/
-├── next.config.ts
-├── tsconfig.json
-└── package.json
-```
-
-Com **Drizzle**, **Better Auth**, **Tailwind** e **ESLint**, arquivos extras são adicionados automaticamente.
-
----
-
-## Desenvolvimento deste repositório
-
-Monorepo gerenciado com [Turborepo](https://turbo.build/) + [pnpm workspaces](https://pnpm.io/workspaces).
-
-```
-create-md-app/              # repo local (nome da pasta pode variar)
-├── apps/cli/               # @madda/create-app (publicável)
-├── packages/
-│   ├── eslint-config/      # @repo/eslint-config
-│   ├── prettier-config/    # @repo/prettier-config
-│   └── typescript-config/  # @repo/typescript-config
-└── _apps/                  # referência local (ignorado pelo git)
-```
-
-### Setup
-
-```bash
-git clone <seu-repo>
-cd create-md-app
-pnpm install
-```
-
-### Scripts principais
-
-| Comando                                 | Descrição                    |
-| --------------------------------------- | ---------------------------- |
-| `pnpm dev`                              | Dev do CLI com hot reload    |
-| `pnpm build:cli`                        | Build do `@madda/create-app` |
-| `pnpm --filter @madda/create-app start` | Roda o CLI buildado          |
-| `pnpm lint`                             | ESLint no monorepo           |
-| `pnpm check-types`                      | Typecheck                    |
-| `pnpm format`                           | Prettier no monorepo         |
-
-### Rodar o CLI localmente
-
-```bash
-pnpm build:cli
-pnpm --filter @madda/create-app start
-# ou em dev
-pnpm --filter @madda/create-app dev
-```
-
-Testar em outra pasta:
-
-```bash
-node apps/cli/dist/index.js meu-teste
-```
-
-### Releases (org madda no npm)
-
-```bash
-# 1. Registrar mudança
-pnpm changeset
-
-# 2. Aplicar bump de versão + CHANGELOG
-pnpm release
-
-# 3. Publicar na org @madda
-pnpm pub:release
-# ou beta
-pnpm pub:beta
-```
-
-Publicação requer login npm com permissão na org **madda** e `publishConfig.access: public` (já configurado).
-
----
-
-## Stack técnica do CLI
-
-- [@clack/prompts](https://github.com/bombshell-dev/clack) — prompts interativos
-- [Commander](https://github.com/tj/commander.js) — parsing de args
-- [tsup](https://tsup.egoist.dev/) — bundler
-- [Changesets](https://github.com/changesets/changesets) — releases
-
----
-
-## Contribuindo
-
-1. Fork + branch
-2. `pnpm install`
-3. Faça suas alterações
-4. `pnpm lint && pnpm check-types && pnpm build:cli`
-5. `pnpm changeset` (se for release)
-6. Abra um PR
-
----
-
-## Licença
-
-MIT — veja `apps/cli/package.json`.
+MIT

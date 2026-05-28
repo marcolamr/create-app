@@ -1,4 +1,4 @@
-# @madda/create-app
+# @madda/app
 
 ## 1.0.3
 
@@ -22,4 +22,4 @@
 
 ### Minor Changes
 
-- Primeiro release do **@madda/create-app** — CLI para scaffold de apps Next.js com a madda stack.
+- Primeiro release do **@madda/app** — CLI para scaffold de apps Next.js com a madda stack.
