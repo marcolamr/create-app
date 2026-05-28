@@ -10,6 +10,7 @@ export const dependencyVersionMap = {
   'drizzle-kit': '^0.31.10',
   'drizzle-orm': '^0.45.2',
   postgres: '^3.4.9',
+  '@paralleldrive/cuid2': '^2.2.2',
 
   // TailwindCSS
   tailwindcss: '^4.3.0',
