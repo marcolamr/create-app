@@ -27,6 +27,8 @@ export const TEMPLATE = {
     index: 'features/auth/server/better-auth/index.ts',
     client: 'features/auth/server/better-auth/client.ts',
     server: 'features/auth/server/better-auth/server.ts',
+    password: 'features/auth/models/password.ts',
+    plugins: ['features/auth/server/better-auth/plugins/sync-bearer-token.ts'],
   },
 
   drizzle: {

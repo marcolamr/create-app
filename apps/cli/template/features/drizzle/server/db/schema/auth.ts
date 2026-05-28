@@ -25,11 +25,6 @@ export const users = pgTable(
     features: text('features').array().notNull().default([]),
     notifications: boolean('notifications').notNull().default(true),
     description: text('description').notNull().default(''),
-    phoneNumber: text('phone_number').unique(),
-    phoneNumberVerified: boolean('phone_number_verified').default(false).notNull(),
-    reputationScore: integer('reputation_score').default(50).notNull(),
-    totalReports: integer('total_reports').default(0).notNull(),
-    accuracyRate: integer('accuracy_rate'),
     createdAt: timestamp('created_at').defaultNow().notNull(),
     updatedAt: timestamp('updated_at')
       .defaultNow()

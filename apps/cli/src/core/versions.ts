@@ -1,6 +1,7 @@
 /** Pinned dependency versions for generated projects. */
 export const DEP_VERSIONS = {
   'better-auth': '^1.6',
+  '@node-rs/argon2': '^2.0.2',
   'drizzle-kit': '^0.31.10',
   'drizzle-orm': '^0.45.2',
   postgres: '^3.4.9',
