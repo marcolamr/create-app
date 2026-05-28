@@ -71,7 +71,6 @@ export async function runCli(argv: string[]): Promise<CreateInput> {
     {
       tailwind: () => p.confirm({ message: 'Tailwind CSS?', initialValue: true }),
       eslint: () => p.confirm({ message: 'ESLint + Prettier?', initialValue: true }),
-      auth: () => p.confirm({ message: 'Better Auth?', initialValue: true }),
       drizzle: async () => {
         const value = await p.select({
           message: 'Database (Drizzle ORM)?',
@@ -85,6 +84,7 @@ export async function runCli(argv: string[]): Promise<CreateInput> {
         if (p.isCancel(value)) process.exit(0);
         return (value === 'none' ? false : value) as DrizzleOption;
       },
+      auth: () => p.confirm({ message: 'Better Auth?', initialValue: true }),
     },
     {
       onCancel: () => {
