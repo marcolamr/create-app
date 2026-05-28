@@ -16,7 +16,8 @@ export const TEMPLATE = {
       auth: 'features/ui/pages/with-better-auth.tsx',
       authTailwind: 'features/ui/pages/with-better-auth-tw.tsx',
     },
-    cssModule: 'features/ui/index.module.css',
+    pageCssModule: 'features/ui/page.module.css',
+    authCssModule: 'features/ui/index.module.css',
   },
 
   auth: {

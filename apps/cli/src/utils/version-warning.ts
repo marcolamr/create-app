@@ -9,9 +9,11 @@ export const NPM_PACKAGE_NAME = '@madda/app';
 export function getLatestNpmVersion(): Promise<string | null> {
   return new Promise((resolve) => {
     const encoded = encodeURIComponent(NPM_PACKAGE_NAME);
-    https
-      .get(`https://registry.npmjs.org/-/package/${encoded}/dist-tags`, (res) => {
+    const req = https.get(
+      `https://registry.npmjs.org/-/package/${encoded}/dist-tags`,
+      (res) => {
         if (res.statusCode !== 200) {
+          res.resume();
           resolve(fallbackNpmVersion());
           return;
         }
@@ -27,8 +29,14 @@ export function getLatestNpmVersion(): Promise<string | null> {
             resolve(fallbackNpmVersion());
           }
         });
-      })
-      .on('error', () => resolve(fallbackNpmVersion()));
+      },
+    );
+
+    req.on('error', () => resolve(fallbackNpmVersion()));
+    req.setTimeout(5_000, () => {
+      req.destroy();
+      resolve(fallbackNpmVersion());
+    });
   });
 }
 

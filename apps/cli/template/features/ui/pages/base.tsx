@@ -1,39 +1,45 @@
-import Link from "next/link";
+import Image from 'next/image';
 
-import styles from "./index.module.css";
+import styles from './page.module.css';
 
 export default function Home() {
   return (
-    <main className={styles.main}>
-      <div className={styles.container}>
-        <h1 className={styles.title}>
-          Create <span className={styles.pinkSpan}>T3</span> App
-        </h1>
-        <div className={styles.cardRow}>
-          <Link
-            className={styles.card}
-            href="https://create.t3.gg/en/usage/first-steps"
-            target="_blank"
-          >
-            <h3 className={styles.cardTitle}>First Steps →</h3>
-            <div className={styles.cardText}>
-              Just the basics - Everything you need to know to set up your
-              database and authentication.
-            </div>
-          </Link>
-          <Link
-            className={styles.card}
-            href="https://create.t3.gg/en/introduction"
-            target="_blank"
-          >
-            <h3 className={styles.cardTitle}>Documentation →</h3>
-            <div className={styles.cardText}>
-              Learn more about Create T3 App, the libraries it uses, and how to
-              deploy it.
-            </div>
-          </Link>
+    <div className={styles.page}>
+      <main className={styles.main}>
+        <span className={styles.badge}>Funcionando</span>
+
+        <div className={styles.intro}>
+          <p className={styles.eyebrow}>@madda/app</p>
+          <h1>Seu app está no ar.</h1>
+          <p>
+            Scaffold gerado com sucesso. Edite{' '}
+            <code className={styles.code}>src/app/page.tsx</code> para começar a
+            construir.
+          </p>
         </div>
-      </div>
-    </main>
+
+        <div className={styles.brands}>
+          <div className={styles.brand}>
+            <Image
+              className={styles.logo}
+              src="/next.svg"
+              alt="Next.js"
+              width={100}
+              height={20}
+              priority
+            />
+          </div>
+          <div className={styles.brand}>
+            <Image
+              className={styles.logoMark}
+              src="/vercel.svg"
+              alt="Vercel"
+              width={100}
+              height={20}
+            />
+          </div>
+        </div>
+      </main>
+    </div>
   );
 }

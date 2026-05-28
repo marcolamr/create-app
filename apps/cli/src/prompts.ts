@@ -18,8 +18,8 @@ export const DEFAULT_STACK: StackOptions = {
 export const MINIMAL_STACK: StackOptions = {
   auth: false,
   drizzle: false,
-  tailwind: true,
-  eslint: true,
+  tailwind: false,
+  eslint: false,
 };
 
 export async function runCli(argv: string[]): Promise<CreateInput> {

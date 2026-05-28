@@ -17,7 +17,11 @@ export const uiFeature: Feature = {
     project.copyRaw(page, 'src/app/page.tsx');
 
     if (!project.has('tailwind')) {
-      project.copyRaw(U.cssModule, 'src/app/index.module.css');
+      const cssModule = project.has('auth') ? U.authCssModule : U.pageCssModule;
+      const cssDest = project.has('auth')
+        ? 'src/app/index.module.css'
+        : 'src/app/page.module.css';
+      project.copyRaw(cssModule, cssDest);
     }
   },
 };

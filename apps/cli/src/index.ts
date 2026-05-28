@@ -18,8 +18,13 @@ async function main(): Promise<void> {
   await createProject(input);
 }
 
-main().catch((err: unknown) => {
-  console.error(chalk.red('\nAborting.'));
-  console.error(err instanceof Error ? err.message : err);
-  process.exit(1);
-});
+main()
+  .then(() => {
+    // @clack/prompts keeps stdin listeners open; exit explicitly when done.
+    process.exit(0);
+  })
+  .catch((err: unknown) => {
+    console.error(chalk.red('\nAborting.'));
+    console.error(err instanceof Error ? err.message : err);
+    process.exit(1);
+  });
