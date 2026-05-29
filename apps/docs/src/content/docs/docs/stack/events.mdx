@@ -1,0 +1,31 @@
+---
+title: Events & firewall
+description: Optional sign-up rate limiting and audit events.
+---
+
+Enable **“Include events?”** in the CLI when you have **Better Auth + Drizzle**.
+
+## What gets added
+
+| Path | Purpose |
+| ---- | ------- |
+| `src/server/db/schema/events.ts` | `events` table |
+| `src/repositories/` | `UserRepository`, `EventRepository` |
+| `src/server/db/firewall/create-user.ts` | Calls SQL function + blocks abusive IPs |
+| `drizzle/sql/firewall_create_user.sql` | Postgres function |
+| `scripts/apply-sql.ts` | Run raw SQL against `DATABASE_URL` |
+
+## How it works
+
+1. Sign-ups emit `create:user` events with IP metadata.
+2. `firewall_create_user(inet)` returns whether another sign-up from the same IP is allowed in a 5s window.
+3. On abuse, recent users may have features cleared and a `firewall:block_users` event is recorded.
+
+## Apply SQL after schema push
+
+```bash
+pnpm db:push
+pnpm db:sql:firewall
+```
+
+For production, prefer `DATABASE_URL_MIGRATE` with a migration role when applying SQL.

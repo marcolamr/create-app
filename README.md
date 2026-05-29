@@ -166,12 +166,23 @@ cd create-md-app
 pnpm install
 ```
 
+### Documentação (`apps/docs`)
+
+Site estático com [Astro](https://astro.build/) + [Starlight](https://starlight.astro.build/) — LP, `/docs`, `/faq`, i18n **en** / **pt-br**, busca [Pagefind](https://pagefind.app/) (grátis).
+
+```bash
+pnpm dev:docs      # http://localhost:4321
+pnpm build:docs    # apps/docs/dist → deploy Vercel
+```
+
 ### Scripts principais
 
 | Comando | Descrição |
 |---------|-----------|
 | `pnpm dev` | Dev do CLI com hot reload |
+| `pnpm dev:docs` | Dev do site de documentação |
 | `pnpm build:cli` | Build do `@madda/app` |
+| `pnpm build:docs` | Build do site de docs |
 | `pnpm --filter @madda/app start` | Roda o CLI buildado |
 | `pnpm lint` | ESLint no monorepo |
 | `pnpm check-types` | Typecheck |

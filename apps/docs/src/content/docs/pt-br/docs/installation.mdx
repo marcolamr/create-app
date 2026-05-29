@@ -1,0 +1,50 @@
+---
+title: Instalação
+description: Crie um projeto com pnpm, npm ou npx.
+---
+
+## Pré-requisitos
+
+- **Node.js** 18+
+- Package manager: **pnpm** (recomendado), npm, yarn ou bun
+
+## Criar o projeto
+
+```bash
+pnpm create @madda/app meu-app
+cd meu-app
+pnpm dev
+```
+
+```bash
+npx @madda/app@latest meu-app
+```
+
+## Sem prompts (defaults)
+
+```bash
+pnpm create @madda/app meu-app -- --default
+```
+
+## Flags para CI
+
+```bash
+pnpm create @madda/app meu-app -- --default --noGit --noInstall
+```
+
+## Depois do scaffold
+
+Com **Drizzle + Postgres**:
+
+```bash
+./start-database.sh
+pnpm db:push
+```
+
+Com **eventos**:
+
+```bash
+pnpm db:sql:firewall
+```
+
+Abra [http://localhost:3000](http://localhost:3000).

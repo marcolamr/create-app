@@ -1,0 +1,24 @@
+---
+title: Uso do CLI e flags
+description: Referência do comando madda-app.
+---
+
+Binário publicado: **`madda-app`**.
+
+```bash
+madda-app [dir] [opções]
+```
+
+| Flag | Descrição |
+| ---- | --------- |
+| `[dir]` | Pasta do projeto (padrão: `my-app`) |
+| `--default` | Pula prompts; stack padrão |
+| `--no-git` | Não roda `git init` |
+| `--no-install` | Não instala dependências |
+| `--import-alias` | Alias de import (padrão `@/`) |
+
+## Stack padrão (`--default`)
+
+Tailwind, ESLint, Drizzle Postgres local, Better Auth — **sem** módulo de eventos.
+
+Fluxo interativo: [Fluxo interativo](/pt-br/docs/cli/interactive/).

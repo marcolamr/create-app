@@ -1,0 +1,104 @@
+---
+import type { Lang } from '../i18n';
+import { faq } from '../i18n';
+import PageShell from './PageShell.astro';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const items = faq[lang];
+const title = lang === 'pt-br' ? 'Perguntas frequentes' : 'FAQ';
+---
+
+<PageShell lang={lang} title={title}>
+  <main class="faq">
+    <h1>{title}</h1>
+    <p class="intro">
+      {
+        lang === 'pt-br'
+          ? 'Respostas diretas. Para detalhes, use a documentação e a busca (Pagefind).'
+          : 'Straight answers. For depth, use the docs and built-in search (Pagefind).'
+      }
+    </p>
+    <div class="list">
+      {
+        items.map((item) => (
+          <details class="item">
+            <summary>{item.q}</summary>
+            <p>{item.a}</p>
+          </details>
+        ))
+      }
+    </div>
+    <p class="more">
+      <a href={lang === 'pt-br' ? '/pt-br/docs/' : '/docs/'}>
+        {lang === 'pt-br' ? 'Abrir documentação →' : 'Open documentation →'}
+      </a>
+    </p>
+  </main>
+</PageShell>
+
+<style>
+  .faq {
+    flex: 1;
+    max-width: 42rem;
+    margin: 0 auto;
+    padding: 3rem 1.5rem 4rem;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  h1 {
+    font-size: 2.25rem;
+    letter-spacing: -0.03em;
+    margin: 0 0 0.75rem;
+  }
+
+  .intro {
+    color: #a1a1aa;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+  }
+
+  .list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .item {
+    background: #18181b;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 0.65rem;
+    padding: 0.25rem 1rem;
+  }
+
+  summary {
+    cursor: pointer;
+    font-weight: 600;
+    padding: 0.75rem 0;
+    list-style: none;
+  }
+
+  summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .item p {
+    color: #a1a1aa;
+    line-height: 1.6;
+    margin: 0 0 1rem;
+    font-size: 0.95rem;
+  }
+
+  .more {
+    margin-top: 2.5rem;
+  }
+
+  .more a {
+    color: #a78bfa;
+    font-weight: 500;
+  }
+</style>

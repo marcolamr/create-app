@@ -1,0 +1,38 @@
+---
+title: Drizzle & database
+description: Postgres local, Neon, and db scripts.
+---
+
+## Providers
+
+| CLI choice | Driver | Notes |
+| ---------- | ------ | ----- |
+| PostgreSQL (local) | `postgres` | Generates `start-database.sh` |
+| Neon | `@neondatabase/serverless` | Use Neon connection string in `DATABASE_URL` |
+| None | — | No Drizzle files |
+
+## Scripts (when Drizzle is enabled)
+
+```bash
+pnpm db:push      # drizzle-kit push
+pnpm db:studio    # Drizzle Studio
+pnpm db:generate  # generate migrations
+pnpm db:migrate   # run migrations
+```
+
+## Schema layout
+
+- **Auth only** — `src/server/db/schema/auth.ts` + index
+- **Auth + events** — adds `events.ts` and exports both from `schema/index.ts`
+- **No auth** — example `posts` schema for learning Drizzle
+
+## SQL scripts (events module)
+
+When events are enabled:
+
+```bash
+pnpm db:sql              # apply all .sql in drizzle/sql/
+pnpm db:sql:firewall     # apply firewall_create_user.sql only
+```
+
+Uses `scripts/apply-sql.ts` with `DATABASE_URL` or `DATABASE_URL_MIGRATE`.

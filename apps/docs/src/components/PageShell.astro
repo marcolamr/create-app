@@ -1,0 +1,124 @@
+---
+import type { Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+  title: string;
+}
+
+const { lang, title } = Astro.props;
+const prefix = lang === 'pt-br' ? '/pt-br' : '';
+const otherLang = lang === 'pt-br' ? 'en' : 'pt-br';
+const otherLabel = lang === 'pt-br' ? 'English' : 'Português';
+const otherHref = lang === 'pt-br' ? '/' : '/pt-br';
+---
+
+<!doctype html>
+<html lang={lang === 'pt-br' ? 'pt-BR' : 'en'}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="madda — scaffold full-stack Next.js apps with typesafety and great DX." />
+    <title>{title} · madda</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header class="nav">
+      <a class="brand" href={prefix || '/'}><strong>madda</strong><span class="dot">.</span></a>
+      <nav class="links">
+        <a href={`${prefix}/docs/`}>Docs</a>
+        <a href={`${prefix}/faq`}>FAQ</a>
+        <a class="lang" href={otherHref}>{otherLabel}</a>
+        <a class="btn ghost" href="https://github.com/marcolamr/create-app" target="_blank" rel="noreferrer"
+          >GitHub</a
+        >
+      </nav>
+    </header>
+    <slot />
+    <footer class="footer">
+      <p>MIT · <a href="https://www.npmjs.com/package/@madda/app">@madda/app</a> on npm</p>
+    </footer>
+  </body>
+</html>
+
+<style>
+  :global(body) {
+    margin: 0;
+    font-family: 'DM Sans', system-ui, sans-serif;
+    background: #09090b;
+    color: #fafafa;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    position: sticky;
+    top: 0;
+    backdrop-filter: blur(12px);
+    background: rgba(9, 9, 11, 0.85);
+    z-index: 10;
+  }
+
+  .brand {
+    color: inherit;
+    text-decoration: none;
+    font-size: 1.25rem;
+    letter-spacing: -0.03em;
+  }
+
+  .dot {
+    color: #a78bfa;
+  }
+
+  .links {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    font-size: 0.95rem;
+  }
+
+  .links a {
+    color: #a1a1aa;
+    text-decoration: none;
+  }
+
+  .links a:hover {
+    color: #fafafa;
+  }
+
+  .btn {
+    padding: 0.45rem 0.9rem;
+    border-radius: 0.5rem;
+    font-weight: 500;
+    text-decoration: none;
+  }
+
+  .btn.ghost {
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: #fafafa;
+  }
+
+  .footer {
+    margin-top: auto;
+    padding: 2rem 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    color: #71717a;
+    font-size: 0.875rem;
+    text-align: center;
+  }
+
+  .footer a {
+    color: #a78bfa;
+  }
+</style>

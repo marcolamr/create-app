@@ -1,0 +1,56 @@
+---
+title: Installation
+description: Create a new project with pnpm, npm, or npx.
+---
+
+## Prerequisites
+
+- **Node.js** 18 or newer
+- A package manager: **pnpm** (recommended), npm, yarn, or bun
+
+## Create a project
+
+```bash
+pnpm create @madda/app my-app
+cd my-app
+pnpm dev
+```
+
+Other package managers:
+
+```bash
+npx @madda/app@latest my-app
+# or
+npm create @madda/app@latest my-app
+```
+
+## Skip prompts (defaults)
+
+Uses the default stack: Tailwind, ESLint, local Postgres + Drizzle, Better Auth (no events):
+
+```bash
+pnpm create @madda/app my-app -- --default
+```
+
+## CI-friendly flags
+
+```bash
+pnpm create @madda/app my-app -- --default --noGit --noInstall
+```
+
+## After install
+
+If you chose **Drizzle + Postgres**, start the database and push the schema:
+
+```bash
+./start-database.sh   # when generated
+pnpm db:push
+```
+
+If you enabled **events**, apply firewall SQL once:
+
+```bash
+pnpm db:sql:firewall
+```
+
+Then open [http://localhost:3000](http://localhost:3000).

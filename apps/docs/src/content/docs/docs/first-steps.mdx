@@ -1,0 +1,48 @@
+---
+title: First steps
+description: What to do right after scaffolding.
+---
+
+## 1. Environment variables
+
+The CLI writes `.env` and `.env.example`. Secrets like `BETTER_AUTH_SECRET` are generated for local dev — **never commit `.env`**.
+
+Update `DATABASE_URL` if you use Neon or a remote Postgres instance.
+
+## 2. Database
+
+**Local Postgres (template default)**
+
+```bash
+./start-database.sh
+pnpm db:push
+```
+
+**Neon**
+
+Copy your connection string from the [Neon console](https://console.neon.tech) into `DATABASE_URL`, then:
+
+```bash
+pnpm db:push
+```
+
+## 3. Auth (if enabled)
+
+Better Auth lives under `src/server/auth/`. The API route is `src/app/api/auth/[...all]/route.ts`.
+
+Configure Google OAuth in `.env` when ready:
+
+```ini
+GOOGLE_CLIENT_ID=""
+GOOGLE_CLIENT_SECRET=""
+```
+
+## 4. Run the app
+
+```bash
+pnpm dev
+```
+
+## 5. Explore the structure
+
+See [Folder structure](/docs/structure/) for a map of generated files.

@@ -1,0 +1,24 @@
+
+export default new Map([
+["src/content/docs/404.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2F404.mdx&astroContentModuleFlag=true")],
+["src/content/docs/docs/cli.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2Fdocs%2Fcli.mdx&astroContentModuleFlag=true")],
+["src/content/docs/docs/cli/interactive.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2Fdocs%2Fcli%2Finteractive.mdx&astroContentModuleFlag=true")],
+["src/content/docs/docs/env.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2Fdocs%2Fenv.mdx&astroContentModuleFlag=true")],
+["src/content/docs/docs/first-steps.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2Fdocs%2Ffirst-steps.mdx&astroContentModuleFlag=true")],
+["src/content/docs/docs/index.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2Fdocs%2Findex.mdx&astroContentModuleFlag=true")],
+["src/content/docs/docs/installation.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2Fdocs%2Finstallation.mdx&astroContentModuleFlag=true")],
+["src/content/docs/docs/stack/auth.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2Fdocs%2Fstack%2Fauth.mdx&astroContentModuleFlag=true")],
+["src/content/docs/docs/stack/drizzle.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2Fdocs%2Fstack%2Fdrizzle.mdx&astroContentModuleFlag=true")],
+["src/content/docs/docs/stack/events.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2Fdocs%2Fstack%2Fevents.mdx&astroContentModuleFlag=true")],
+["src/content/docs/docs/structure.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2Fdocs%2Fstructure.mdx&astroContentModuleFlag=true")],
+["src/content/docs/pt-br/docs/cli.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2Fpt-br%2Fdocs%2Fcli.mdx&astroContentModuleFlag=true")],
+["src/content/docs/pt-br/docs/cli/interactive.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2Fpt-br%2Fdocs%2Fcli%2Finteractive.mdx&astroContentModuleFlag=true")],
+["src/content/docs/pt-br/docs/env.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2Fpt-br%2Fdocs%2Fenv.mdx&astroContentModuleFlag=true")],
+["src/content/docs/pt-br/docs/first-steps.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2Fpt-br%2Fdocs%2Ffirst-steps.mdx&astroContentModuleFlag=true")],
+["src/content/docs/pt-br/docs/index.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2Fpt-br%2Fdocs%2Findex.mdx&astroContentModuleFlag=true")],
+["src/content/docs/pt-br/docs/installation.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2Fpt-br%2Fdocs%2Finstallation.mdx&astroContentModuleFlag=true")],
+["src/content/docs/pt-br/docs/stack/auth.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2Fpt-br%2Fdocs%2Fstack%2Fauth.mdx&astroContentModuleFlag=true")],
+["src/content/docs/pt-br/docs/stack/drizzle.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2Fpt-br%2Fdocs%2Fstack%2Fdrizzle.mdx&astroContentModuleFlag=true")],
+["src/content/docs/pt-br/docs/stack/events.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2Fpt-br%2Fdocs%2Fstack%2Fevents.mdx&astroContentModuleFlag=true")],
+["src/content/docs/pt-br/docs/structure.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2Fpt-br%2Fdocs%2Fstructure.mdx&astroContentModuleFlag=true")]]);
+		

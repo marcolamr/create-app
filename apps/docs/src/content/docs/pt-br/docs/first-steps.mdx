@@ -1,0 +1,35 @@
+---
+title: Primeiros passos
+description: O que fazer logo após gerar o projeto.
+---
+
+## 1. Variáveis de ambiente
+
+O CLI cria `.env` e `.env.example`. O `BETTER_AUTH_SECRET` é gerado para dev local — **não commite `.env`**.
+
+Ajuste `DATABASE_URL` para Neon ou Postgres remoto.
+
+## 2. Banco
+
+**Postgres local**
+
+```bash
+./start-database.sh
+pnpm db:push
+```
+
+**Neon** — cole a connection string e rode `pnpm db:push`.
+
+## 3. Auth (se habilitado)
+
+Código em `src/server/auth/`. Rota: `src/app/api/auth/[...all]/route.ts`.
+
+## 4. Subir o app
+
+```bash
+pnpm dev
+```
+
+## 5. Estrutura
+
+Veja [Estrutura de pastas](/pt-br/docs/structure/).

@@ -1,0 +1,39 @@
+---
+title: Better Auth
+description: Auth module, default user features, and Drizzle adapter.
+---
+
+Better Auth is only scaffolded when you select **a database** in the CLI — the template uses the **Drizzle adapter**.
+
+## Generated layout
+
+```
+src/server/auth/
+├── config.ts                 # betterAuth({ ... })
+├── default-user-features.ts  # feature flags for new users
+├── index.ts                  # re-exports auth
+├── client.ts                 # React client
+├── server.ts                 # getSession() helper
+└── plugins/
+    └── sync-bearer-token.ts
+```
+
+API route: `src/app/api/auth/[...all]/route.ts`
+
+## Default user features
+
+New users receive feature flags such as `create:session`, `read:session`, `update:user` via `default-user-features.ts`. Better Auth reads them in `user.additionalFields.features`.
+
+## Configuration
+
+`config.ts` includes email/password, optional Google OAuth, bearer + username + 2FA plugins, and rate limiting stored in the database.
+
+Set in `.env`:
+
+```ini
+BETTER_AUTH_SECRET=
+BETTER_AUTH_URL=http://localhost:3000
+BETTER_BASE_PATH=/api/v1/auth
+```
+
+Client URLs use `NEXT_PUBLIC_*` counterparts when generated with the full auth+db env template.

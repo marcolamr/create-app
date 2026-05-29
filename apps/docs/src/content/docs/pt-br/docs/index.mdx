@@ -1,0 +1,37 @@
+---
+title: Introdução
+description: O que é o @madda/app e como ele se compara a starters “tudo em um”.
+---
+
+O **@madda/app** é o CLI oficial da org [madda](https://www.npmjs.com/org/madda). Ele gera projetos [Next.js](https://nextjs.org/) com a **madda stack** — foco em type-safety, DX e convenções que escalam.
+
+Inspirado no fluxo do [create-t3-app](https://create.t3.gg/), feito para o ecossistema madda.
+
+## Não é um template gigante
+
+Não entregamos todas as bibliotecas possíveis. O CLI **compõe features** que você escolhe:
+
+- **Tailwind CSS** — estilo opcional
+- **ESLint + Prettier** — lint/format opcional
+- **Drizzle ORM** — opcional (`postgres` local ou `neon`)
+- **Better Auth** — só quando há banco
+- **Eventos + firewall** — rate-limit opcional com auth + banco
+
+Você recebe código real para evoluir — não um framework para “lutar”.
+
+## O que vem no projeto
+
+| Camada | Padrão / opcional |
+| ------ | ----------------- |
+| Framework | Next.js (App Router) |
+| Linguagem | TypeScript |
+| Env | `@t3-oss/env-nextjs` + Zod |
+| Estilo | Tailwind *(opcional)* |
+| ORM | Drizzle *(opcional)* |
+| Auth | Better Auth *(opcional, exige DB)* |
+| Logs | Pino + Axiom opcional |
+
+## Próximo passo
+
+- [Instalação](/pt-br/docs/installation/)
+- [CLI](/pt-br/docs/cli/)

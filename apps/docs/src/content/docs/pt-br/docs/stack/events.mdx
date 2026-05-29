@@ -1,0 +1,13 @@
+---
+title: Eventos e firewall
+description: Rate-limit de cadastro por IP.
+---
+
+Ative **“Incluir eventos?”** com Better Auth + Drizzle.
+
+Inclui tabela `events`, repositories, função SQL `firewall_create_user`, scripts `db:sql`.
+
+```bash
+pnpm db:push
+pnpm db:sql:firewall
+```

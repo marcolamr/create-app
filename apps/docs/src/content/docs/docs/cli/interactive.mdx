@@ -1,0 +1,25 @@
+---
+title: Interactive flow
+description: What the CLI asks when stdin is a TTY.
+---
+
+When you run without `--default` in a terminal, the CLI walks through:
+
+1. **Project name**
+2. **Tailwind CSS?**
+3. **ESLint + Prettier?**
+4. **Database (Drizzle)?** — None · PostgreSQL (Docker) · Neon
+5. **Better Auth?** — only if a database was chosen
+6. **Include events?** — only if Better Auth + database (firewall / rate-limit)
+7. **Initialize git?**
+8. **Run install?**
+
+## Rules that matter
+
+| Choice | Effect |
+| ------ | ------ |
+| No database | Auth and events are **not** offered |
+| Auth without events | Standard Better Auth + Drizzle schema |
+| Auth + events | Adds `events` table, repositories, SQL scripts, `db:sql` scripts |
+
+Non-interactive environments (CI without TTY) get a **minimal** stack unless you pass `--default`.

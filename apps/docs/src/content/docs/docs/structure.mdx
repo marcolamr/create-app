@@ -1,0 +1,40 @@
+---
+title: Folder structure
+description: Layout of a generated madda app.
+---
+
+Typical project with default stack (Tailwind, Drizzle, Auth):
+
+```
+my-app/
+├── drizzle/
+│   └── sql/                 # when events enabled
+├── scripts/
+│   └── apply-sql.ts         # when events enabled
+├── src/
+│   ├── app/                 # Next.js App Router
+│   │   └── api/auth/        # Better Auth handler
+│   ├── env.js               # validated env
+│   ├── models/              # password hashing, etc.
+│   ├── repositories/        # when events enabled
+│   ├── server/
+│   │   ├── auth/            # Better Auth config + helpers
+│   │   ├── db/              # Drizzle client + schema
+│   │   ├── errors/
+│   │   └── logger/
+│   ├── config/
+│   └── styles/
+├── drizzle.config.ts
+├── start-database.sh        # local Postgres only
+└── package.json
+```
+
+## Monorepo (this CLI repo)
+
+```
+create-app/
+├── apps/
+│   ├── cli/          # @madda/app publishable package
+│   └── docs/         # this documentation site
+└── packages/         # shared eslint, prettier, tsconfig
+```

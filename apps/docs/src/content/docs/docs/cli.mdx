@@ -1,0 +1,42 @@
+---
+title: CLI usage & flags
+description: Command-line reference for madda-app.
+---
+
+The published binary is **`madda-app`** (via `npx @madda/app`).
+
+## Basic usage
+
+```bash
+madda-app [dir] [options]
+```
+
+| Argument / flag | Description |
+| --------------- | ----------- |
+| `[dir]` | Project directory name (default: `my-app`) |
+| `--default` | Skip prompts; use the default stack |
+| `--no-git` | Do not run `git init` |
+| `--no-install` | Skip package manager install |
+| `--import-alias <alias>` | TypeScript import alias (default: `@/`) |
+| `-v, --version` | Print CLI version |
+| `-h, --help` | Show help |
+
+## Examples
+
+```bash
+# Current directory
+pnpm create @madda/app . -- --default
+
+# No git, no install (CI)
+pnpm create @madda/app my-app -- --default --noGit --noInstall
+```
+
+## Default stack (`--default`)
+
+- Tailwind CSS
+- ESLint + Prettier
+- Drizzle + local Postgres
+- Better Auth
+- **No** auth events / firewall module
+
+For the interactive flow (conditional auth & events prompts), see [Interactive flow](/docs/cli/interactive/).
