@@ -10,6 +10,7 @@ describe('Project', () => {
   it('tracks enabled features', () => {
     const project = new Project('/tmp/demo', 'demo', 'demo', {
       auth: true,
+      authEvents: false,
       drizzle: 'postgres',
       tailwind: true,
       eslint: true,
@@ -24,6 +25,7 @@ describe('Project', () => {
   it('throws when drizzle is disabled', () => {
     const project = new Project('/tmp/demo', 'demo', 'demo', {
       auth: false,
+      authEvents: false,
       drizzle: false,
       tailwind: false,
       eslint: false,
@@ -61,6 +63,7 @@ describe('Project', () => {
 
       const project = new Project(dir, 'demo', 'demo', {
         auth: false,
+        authEvents: false,
         drizzle: 'postgres',
         tailwind: true,
         eslint: true,

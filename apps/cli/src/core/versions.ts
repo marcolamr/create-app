@@ -23,6 +23,8 @@ export const DEP_VERSIONS = {
   'eslint-plugin-simple-import-sort': '^13.0.0',
   'eslint-plugin-unused-imports': '^4.4.1',
   'babel-plugin-react-compiler': '1.0.0',
+  tsx: '^4.20.3',
+  dotenv: '^16.5.0',
 } as const;
 
 export type DepName = keyof typeof DEP_VERSIONS;

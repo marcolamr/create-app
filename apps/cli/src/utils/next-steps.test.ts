@@ -14,7 +14,13 @@ describe('printNextSteps', () => {
     printNextSteps({
       projectName: 'demo',
       projectDir: '/tmp/demo',
-      stack: { auth: false, drizzle: false, tailwind: false, eslint: false },
+      stack: {
+        auth: false,
+        authEvents: false,
+        drizzle: false,
+        tailwind: false,
+        eslint: false,
+      },
       noInstall: true,
     });
 
@@ -29,7 +35,13 @@ describe('printNextSteps', () => {
     printNextSteps({
       projectName: 'demo',
       projectDir: '/tmp/demo',
-      stack: { auth: false, drizzle: 'postgres', tailwind: false, eslint: false },
+      stack: {
+        auth: false,
+        authEvents: false,
+        drizzle: 'postgres',
+        tailwind: false,
+        eslint: false,
+      },
       noInstall: false,
     });
 
@@ -44,7 +56,13 @@ describe('printNextSteps', () => {
     printNextSteps({
       projectName: '.',
       projectDir: '/tmp/demo',
-      stack: { auth: false, drizzle: 'neon', tailwind: false, eslint: false },
+      stack: {
+        auth: false,
+        authEvents: false,
+        drizzle: 'neon',
+        tailwind: false,
+        eslint: false,
+      },
       noInstall: false,
     });
 

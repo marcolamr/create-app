@@ -4,12 +4,14 @@ import fs from 'fs-extra';
 import path from 'node:path';
 
 import type { CreateFlags, CreateInput, DrizzleOption, StackOptions } from './core/types';
+import { normalizeStack, usesDrizzle } from './core/types';
 import { parseNameAndPath } from './utils/paths';
 import { getVersion } from './utils/pkg-manager';
 import { validateAppName } from './utils/validate';
 
 export const DEFAULT_STACK: StackOptions = {
   auth: true,
+  authEvents: false,
   drizzle: 'postgres',
   tailwind: true,
   eslint: true,
@@ -17,6 +19,7 @@ export const DEFAULT_STACK: StackOptions = {
 
 export const MINIMAL_STACK: StackOptions = {
   auth: false,
+  authEvents: false,
   drizzle: false,
   tailwind: false,
   eslint: false,
@@ -52,7 +55,7 @@ export async function runCli(argv: string[]): Promise<CreateInput> {
   if (flags.defaults || !process.stdin.isTTY) {
     return {
       appName: dir,
-      stack: flags.defaults ? DEFAULT_STACK : MINIMAL_STACK,
+      stack: normalizeStack(flags.defaults ? DEFAULT_STACK : MINIMAL_STACK),
       flags,
     };
   }
@@ -67,32 +70,50 @@ export async function runCli(argv: string[]): Promise<CreateInput> {
   });
   if (p.isCancel(name)) process.exit(0);
 
-  const stack = await p.group(
-    {
-      tailwind: () => p.confirm({ message: 'Tailwind CSS?', initialValue: true }),
-      eslint: () => p.confirm({ message: 'ESLint + Prettier?', initialValue: true }),
-      drizzle: async () => {
-        const value = await p.select({
-          message: 'Database (Drizzle ORM)?',
-          options: [
-            { label: 'None', value: 'none' },
-            { label: 'PostgreSQL (local Docker)', value: 'postgres' },
-            { label: 'Neon (serverless Postgres)', value: 'neon' },
-          ],
-          initialValue: 'postgres',
-        });
-        if (p.isCancel(value)) process.exit(0);
-        return (value === 'none' ? false : value) as DrizzleOption;
-      },
-      auth: () => p.confirm({ message: 'Better Auth?', initialValue: true }),
-    },
-    {
-      onCancel: () => {
-        p.cancel('Cancelled.');
-        process.exit(0);
-      },
-    },
-  );
+  const tailwind = await p.confirm({ message: 'Tailwind CSS?', initialValue: true });
+  if (p.isCancel(tailwind)) process.exit(0);
+
+  const eslint = await p.confirm({ message: 'ESLint + Prettier?', initialValue: true });
+  if (p.isCancel(eslint)) process.exit(0);
+
+  const drizzleValue = await p.select({
+    message: 'Database (Drizzle ORM)?',
+    options: [
+      { label: 'None', value: 'none' },
+      { label: 'PostgreSQL (local Docker)', value: 'postgres' },
+      { label: 'Neon (serverless Postgres)', value: 'neon' },
+    ],
+    initialValue: 'postgres',
+  });
+  if (p.isCancel(drizzleValue)) process.exit(0);
+
+  const drizzle = (drizzleValue === 'none' ? false : drizzleValue) as DrizzleOption;
+
+  let auth = false;
+  let authEvents = false;
+
+  if (usesDrizzle({ ...MINIMAL_STACK, drizzle })) {
+    const authAnswer = await p.confirm({ message: 'Better Auth?', initialValue: true });
+    if (p.isCancel(authAnswer)) process.exit(0);
+    auth = authAnswer;
+
+    if (auth) {
+      const eventsAnswer = await p.confirm({
+        message: 'Include events?',
+        initialValue: false,
+      });
+      if (p.isCancel(eventsAnswer)) process.exit(0);
+      authEvents = eventsAnswer;
+    }
+  }
+
+  const stack: StackOptions = normalizeStack({
+    tailwind,
+    eslint,
+    drizzle,
+    auth,
+    authEvents,
+  });
 
   const git = await p.confirm({ message: 'Initialize git?', initialValue: true });
   if (p.isCancel(git)) process.exit(0);
@@ -107,7 +128,7 @@ export async function runCli(argv: string[]): Promise<CreateInput> {
 
   return {
     appName: name,
-    stack: stack as StackOptions,
+    stack,
     flags,
   };
 }

@@ -6,6 +6,7 @@ import type { PackageJson } from 'type-fest';
 import { Project } from './core/project.js';
 import { scaffoldBase } from './core/scaffold.js';
 import type { CreateInput } from './core/types.js';
+import { normalizeStack } from './core/types.js';
 import { applyFeatures } from './features/index.js';
 import { finalizeGit } from './utils/git.js';
 import { printNextSteps } from './utils/next-steps.js';
@@ -19,10 +20,11 @@ type MaddaPackageJSON = PackageJson & {
 export async function createProject(input: CreateInput): Promise<string> {
   const [scopedName, dirName] = parseNameAndPath(input.appName);
   const projectDir = path.resolve(process.cwd(), dirName);
+  const stack = normalizeStack(input.stack);
 
   await scaffoldBase(projectDir);
 
-  const project = new Project(projectDir, dirName, scopedName, input.stack);
+  const project = new Project(projectDir, dirName, scopedName, stack);
   applyFeatures(project);
 
   const pkgManager = getUserPkgManager();
@@ -42,7 +44,7 @@ export async function createProject(input: CreateInput): Promise<string> {
   if (!input.flags.noInstall) {
     await execa(pkgManager, ['install'], { cwd: projectDir, stdio: 'inherit' });
 
-    if (input.stack.eslint) {
+    if (stack.eslint) {
       await execa(pkgManager, ['run', 'format:write'], {
         cwd: projectDir,
         stdio: 'inherit',
@@ -57,7 +59,7 @@ export async function createProject(input: CreateInput): Promise<string> {
   printNextSteps({
     projectName: dirName,
     projectDir,
-    stack: input.stack,
+    stack,
     noInstall: input.flags.noInstall,
   });
 

@@ -16,6 +16,7 @@ export async function withTempDir(
 export function defaultStack() {
   return {
     auth: true,
+    authEvents: false,
     drizzle: 'postgres' as const,
     tailwind: true,
     eslint: true,
@@ -25,6 +26,7 @@ export function defaultStack() {
 export function minimalStack() {
   return {
     auth: false,
+    authEvents: false,
     drizzle: false as const,
     tailwind: false,
     eslint: false,

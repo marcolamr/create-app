@@ -40,7 +40,13 @@ export const drizzleFeature: Feature = {
     if (project.has('auth')) {
       project.copyRaw(D.columns, 'src/server/db/columns.ts');
       project.copyRaw(D.schemaAuth, 'src/server/db/schema/auth.ts');
-      project.copyRaw(D.schemaIndexAuth, 'src/server/db/schema/index.ts');
+
+      if (project.stack.authEvents) {
+        project.copyRaw(D.schemaEvents, 'src/server/db/schema/events.ts');
+        project.copyRaw(D.schemaIndexAuthEvents, 'src/server/db/schema/index.ts');
+      } else {
+        project.copyRaw(D.schemaIndexAuth, 'src/server/db/schema/index.ts');
+      }
     } else {
       project.copy(D.schemaPosts, 'src/server/db/schema/posts.ts');
       project.copyRaw(D.schemaIndexBase, 'src/server/db/schema/index.ts');

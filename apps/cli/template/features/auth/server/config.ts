@@ -10,6 +10,7 @@ import { db } from '@/server/db';
 import { cuid } from '@/server/db/columns';
 import * as authSchema from '@/server/db/schema';
 
+import { getDefaultNewUserFeatures } from './default-user-features';
 import { syncBearerTokenPlugin } from './plugins/sync-bearer-token';
 
 export const auth = betterAuth({
@@ -70,7 +71,7 @@ export const auth = betterAuth({
       features: {
         type: 'string[]' as const,
         required: false,
-        defaultValue: ['user'],
+        defaultValue: getDefaultNewUserFeatures(),
         input: false,
       },
       notifications: {

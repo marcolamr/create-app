@@ -22,13 +22,13 @@ export const TEMPLATE = {
 
   auth: {
     route: 'features/auth/api/auth/[...all]/route.ts',
-    configBase: 'features/auth/server/better-auth/config/base.ts',
-    configDrizzle: 'features/auth/server/better-auth/config/with-drizzle.ts',
-    index: 'features/auth/server/better-auth/index.ts',
-    client: 'features/auth/server/better-auth/client.ts',
-    server: 'features/auth/server/better-auth/server.ts',
+    config: 'features/auth/server/config.ts',
+    defaultUserFeatures: 'features/auth/server/default-user-features.ts',
+    index: 'features/auth/server/index.ts',
+    client: 'features/auth/server/client.ts',
+    server: 'features/auth/server/server.ts',
     password: 'features/auth/models/password.ts',
-    plugins: ['features/auth/server/better-auth/plugins/sync-bearer-token.ts'],
+    plugins: ['features/auth/server/plugins/sync-bearer-token.ts'],
   },
 
   drizzle: {
@@ -37,10 +37,21 @@ export const TEMPLATE = {
     clientNeon: 'features/drizzle/server/db/index.neon.ts',
     columns: 'features/drizzle/server/db/columns.ts',
     schemaAuth: 'features/drizzle/server/db/schema/auth.ts',
+    schemaEvents: 'features/drizzle/server/db/schema/events.ts',
     schemaIndexAuth: 'features/drizzle/server/db/schema/index-auth.ts',
+    schemaIndexAuthEvents: 'features/drizzle/server/db/schema/index-auth-events.ts',
     schemaPosts: 'features/drizzle/server/db/schema/posts.ts',
     schemaIndexBase: 'features/drizzle/server/db/schema/index-base.ts',
+    firewallCreateUser: 'features/drizzle/server/db/firewall/create-user.ts',
+    sqlFirewallCreateUser: 'features/drizzle/sql/firewall_create_user.sql',
+    applySqlScript: 'features/drizzle/scripts/apply-sql.ts',
     startDatabase: 'features/drizzle/start-database.sh',
+  },
+
+  repositories: {
+    index: 'features/repositories/index.ts',
+    user: 'features/repositories/user-repository.ts',
+    event: 'features/repositories/event.repository.ts',
   },
 
   tailwind: {

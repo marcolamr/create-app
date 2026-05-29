@@ -78,15 +78,14 @@ pnpm create @madda/app meu-app -- --default
 O CLI pergunta o que você quer incluir:
 
 ```
-◆  What will your project be called?
-◆  Will you be using TypeScript or JavaScript?
-◆  Will you be using Tailwind CSS for styling?
-◆  What authentication provider would you like to use?
-◆  What database ORM would you like to use?
-◆  Would you like to use ESLint and Prettier?
-◆  Should we initialize a Git repository?
-◆  Should we run 'pnpm install' for you?
-◆  What import alias would you like to use?  →  @/
+◆  Project name
+◆  Tailwind CSS?
+◆  ESLint + Prettier?
+◆  Database (Drizzle ORM)?  →  None | PostgreSQL | Neon
+◆  Better Auth?              →  só aparece se um banco foi escolhido
+◆  Incluir eventos?          →  só aparece com banco + Better Auth
+◆  Initialize git?
+◆  Run install?
 ```
 
 No final, o CLI instala dependências, formata o código, inicializa git (se pedido) e mostra os próximos passos.

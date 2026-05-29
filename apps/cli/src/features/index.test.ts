@@ -33,9 +33,7 @@ describe('applyFeatures', () => {
     await withTempDir(async (dir) => {
       await scaffoldWithFeatures(dir, 'full-app', defaultStack());
 
-      expect(fs.existsSync(path.join(dir, 'src/server/better-auth/config.ts'))).toBe(
-        true,
-      );
+      expect(fs.existsSync(path.join(dir, 'src/server/auth/config.ts'))).toBe(true);
       expect(fs.existsSync(path.join(dir, 'drizzle.config.ts'))).toBe(true);
       expect(fs.existsSync(path.join(dir, 'start-database.sh'))).toBe(true);
       expect(fs.existsSync(path.join(dir, 'src/styles/globals.css'))).toBe(true);
@@ -61,10 +59,40 @@ describe('applyFeatures', () => {
     });
   });
 
+  it('scaffolds auth events (firewall, repositories, SQL)', async () => {
+    await withTempDir(async (dir) => {
+      await scaffoldWithFeatures(dir, 'events-app', {
+        ...defaultStack(),
+        authEvents: true,
+      });
+
+      expect(fs.existsSync(path.join(dir, 'src/server/auth/default-user-features.ts'))).toBe(
+        true,
+      );
+      expect(fs.existsSync(path.join(dir, 'src/server/db/schema/events.ts'))).toBe(true);
+      expect(fs.readFileSync(path.join(dir, 'src/server/db/schema/index.ts'), 'utf8')).toContain(
+        './events',
+      );
+      expect(fs.existsSync(path.join(dir, 'drizzle/sql/firewall_create_user.sql'))).toBe(true);
+      expect(fs.existsSync(path.join(dir, 'scripts/apply-sql.ts'))).toBe(true);
+      expect(fs.existsSync(path.join(dir, 'src/repositories/index.ts'))).toBe(true);
+      expect(fs.existsSync(path.join(dir, 'src/server/db/firewall/create-user.ts'))).toBe(true);
+
+      const pkg = fs.readJsonSync(path.join(dir, 'package.json')) as {
+        scripts: Record<string, string>;
+      };
+      expect(pkg.scripts['db:sql']).toBe('tsx scripts/apply-sql.ts');
+      expect(pkg.scripts['db:sql:firewall']).toBe(
+        'tsx scripts/apply-sql.ts firewall_create_user.sql',
+      );
+    });
+  });
+
   it('uses css modules when tailwind is disabled', async () => {
     await withTempDir(async (dir) => {
       await scaffoldWithFeatures(dir, 'css-app', {
         ...minimalStack(),
+        drizzle: 'postgres',
         auth: true,
       });
 

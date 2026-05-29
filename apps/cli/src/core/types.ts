@@ -7,10 +7,23 @@ export type DrizzleOption = false | 'postgres' | 'neon';
 
 export type StackOptions = {
   auth: boolean;
+  /** Firewall/events tables, repositories, and SQL helpers (requires auth + Drizzle). */
+  authEvents: boolean;
   drizzle: DrizzleOption;
   tailwind: boolean;
   eslint: boolean;
 };
+
+/** Auth and events require a database; events require auth. */
+export function normalizeStack(stack: StackOptions): StackOptions {
+  if (!usesDrizzle(stack)) {
+    return { ...stack, auth: false, authEvents: false };
+  }
+  if (!stack.auth) {
+    return { ...stack, authEvents: false };
+  }
+  return stack;
+}
 
 export type CreateFlags = {
   noGit: boolean;
