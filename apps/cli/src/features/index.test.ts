@@ -39,10 +39,13 @@ describe('applyFeatures', () => {
       expect(fs.existsSync(path.join(authDir, 'index.ts'))).toBe(true);
       expect(fs.existsSync(path.join(authDir, 'client.ts'))).toBe(true);
       expect(fs.existsSync(path.join(authDir, 'server.ts'))).toBe(true);
+      expect(fs.existsSync(path.join(authDir, 'plugins/local-middleware.ts'))).toBe(true);
       expect(fs.existsSync(path.join(authDir, 'plugins/sync-bearer-token.ts'))).toBe(
         true,
       );
-      expect(fs.existsSync(path.join(dir, 'src/app/api/auth/[...all]/route.ts'))).toBe(
+      expect(fs.existsSync(path.join(dir, 'src/models/controller.ts'))).toBe(true);
+      expect(fs.existsSync(path.join(dir, 'src/lib/helpers/snakeize.ts'))).toBe(true);
+      expect(fs.existsSync(path.join(dir, 'src/app/api/v1/auth/[...all]/route.ts'))).toBe(
         true,
       );
       expect(fs.existsSync(path.join(dir, 'src/server/better-auth'))).toBe(false);
@@ -67,7 +70,7 @@ describe('applyFeatures', () => {
       });
 
       expect(fs.existsSync(path.join(dir, 'src/server/auth'))).toBe(false);
-      expect(fs.existsSync(path.join(dir, 'src/app/api/auth'))).toBe(false);
+      expect(fs.existsSync(path.join(dir, 'src/app/api/v1/auth'))).toBe(false);
     });
   });
 
@@ -81,6 +84,15 @@ describe('applyFeatures', () => {
       ).not.toContain('./events');
       expect(fs.existsSync(path.join(dir, 'drizzle/sql'))).toBe(false);
       expect(fs.existsSync(path.join(dir, 'src/repositories'))).toBe(false);
+      expect(
+        fs.readFileSync(
+          path.join(dir, 'src/server/auth/record-user-created-event.ts'),
+          'utf8',
+        ),
+      ).toContain('No-op when auth events');
+      expect(
+        fs.readFileSync(path.join(dir, 'src/server/db/firewall/create-user.ts'), 'utf8'),
+      ).toContain('No-op when auth events');
     });
   });
 
@@ -121,6 +133,12 @@ describe('applyFeatures', () => {
       expect(fs.existsSync(path.join(dir, 'src/server/db/firewall/create-user.ts'))).toBe(
         true,
       );
+      expect(
+        fs.readFileSync(
+          path.join(dir, 'src/server/auth/record-user-created-event.ts'),
+          'utf8',
+        ),
+      ).toContain('eventRepository.createUserCreatedEvent');
 
       const pkg = fs.readJsonSync(path.join(dir, 'package.json')) as {
         scripts: Record<string, string>;

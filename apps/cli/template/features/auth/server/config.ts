@@ -11,12 +11,13 @@ import { cuid } from '@/server/db/columns';
 import * as authSchema from '@/server/db/schema';
 
 import { getDefaultNewUserFeatures } from './default-user-features';
+import { localMiddleware } from './plugins/local-middleware';
 import { syncBearerTokenPlugin } from './plugins/sync-bearer-token';
 
 export const auth = betterAuth({
   appName: env.APP_NAME ?? 'Madda App',
   baseURL: env.BETTER_AUTH_URL ?? 'http://localhost:3000',
-  basePath: env.BETTER_BASE_PATH ?? '/api/auth',
+  basePath: env.BETTER_BASE_PATH ?? '/api/v1/auth',
   secret: env.BETTER_AUTH_SECRET,
   trustedOrigins: env.TRUSTED_ORIGINS ?? ['http://localhost:3000'],
   database: drizzleAdapter(db, {
@@ -112,6 +113,7 @@ export const auth = betterAuth({
   plugins: [
     bearer(),
     username(),
+    localMiddleware(),
     syncBearerTokenPlugin(),
     twoFactor({
       issuer: env.APP_NAME ?? 'Madda App',

@@ -2,6 +2,9 @@
 export const DEP_VERSIONS = {
   'better-auth': '^1.6',
   '@node-rs/argon2': '^2.0.2',
+  cookie: '^1.1.1',
+  joi: '^18.2.1',
+  'remove-markdown': '^0.6.4',
   'drizzle-kit': '^0.31.10',
   'drizzle-orm': '^0.45.2',
   postgres: '^3.4.9',

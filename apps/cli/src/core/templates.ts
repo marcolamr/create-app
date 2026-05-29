@@ -21,14 +21,31 @@ export const TEMPLATE = {
   },
 
   auth: {
-    route: 'features/auth/api/auth/[...all]/route.ts',
+    route: 'features/auth/api/v1/auth/[...all]/route.ts',
     config: 'features/auth/server/config.ts',
     defaultUserFeatures: 'features/auth/server/default-user-features.ts',
     index: 'features/auth/server/index.ts',
     client: 'features/auth/server/client.ts',
     server: 'features/auth/server/server.ts',
-    password: 'features/auth/models/password.ts',
-    plugins: ['features/auth/server/plugins/sync-bearer-token.ts'],
+    recordUserCreatedEventNoop: 'features/auth/server/record-user-created-event.noop.ts',
+    firewallCreateUserNoop: 'features/auth/server/db/firewall/create-user.noop.ts',
+    models: {
+      authentication: 'features/auth/models/authentication.ts',
+      authorization: 'features/auth/models/authorization.ts',
+      controller: 'features/auth/models/controller.ts',
+      password: 'features/auth/models/password.ts',
+      removeMarkdown: 'features/auth/models/remove-markdown.ts',
+      userFeatures: 'features/auth/models/user-features.ts',
+      validator: 'features/auth/models/validator.ts',
+    },
+    plugins: [
+      'features/auth/server/plugins/local-middleware.ts',
+      'features/auth/server/plugins/sync-bearer-token.ts',
+    ],
+  },
+
+  authEvents: {
+    recordUserCreatedEvent: 'features/auth-events/server/record-user-created-event.ts',
   },
 
   drizzle: {
@@ -71,6 +88,9 @@ export const TEMPLATE = {
   server: {
     merge: 'features/server/lib/helpers/merge.ts',
     noop: 'features/server/lib/helpers/noop.ts',
+    snakeize: 'features/server/lib/helpers/snakeize.ts',
+    string: 'features/server/lib/helpers/string.ts',
+    is: 'features/server/lib/helpers/is.ts',
     webserver: 'features/server/config/webserver.ts',
     errors: 'features/server/errors/index.ts',
     loggerAxiom: 'features/server/logger/axiom-transport.ts',

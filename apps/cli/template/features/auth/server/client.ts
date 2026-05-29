@@ -1,11 +1,11 @@
 import { twoFactorClient, usernameClient } from 'better-auth/client/plugins';
 import { createAuthClient } from 'better-auth/react';
 
-import { env } from '@/config/env';
+import { env } from '@/env';
 
 export const authClient = createAuthClient({
   baseURL: env.BETTER_AUTH_URL ?? 'http://localhost:3000',
-  basePath: env.BETTER_BASE_PATH ?? '/api/auth',
+  basePath: env.BETTER_BASE_PATH ?? '/api/v1/auth',
   plugins: [
     usernameClient(),
     twoFactorClient({

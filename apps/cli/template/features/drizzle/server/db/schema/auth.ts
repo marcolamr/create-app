@@ -31,10 +31,7 @@ export const users = pgTable(
       .$onUpdate(() => new Date())
       .notNull(),
   },
-  (table) => [
-    uniqueIndex('users_username_lower_idx').on(sql`LOWER(${table.username})`),
-    index('users_reputation_score_idx').on(table.reputationScore),
-  ],
+  (table) => [uniqueIndex('users_username_lower_idx').on(sql`LOWER(${table.username})`)],
 );
 
 export type User = typeof users.$inferSelect;

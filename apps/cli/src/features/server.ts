@@ -15,6 +15,12 @@ export const serverFeature: Feature = {
     const { server: S } = TEMPLATE;
     project.copyRaw(S.merge, 'src/lib/helpers/merge.ts');
     project.copyRaw(S.noop, 'src/lib/helpers/noop.ts');
+
+    if (project.has('auth')) {
+      project.copyRaw(S.snakeize, 'src/lib/helpers/snakeize.ts');
+      project.copyRaw(S.string, 'src/lib/helpers/string.ts');
+      project.copyRaw(S.is, 'src/lib/helpers/is.ts');
+    }
     project.copyRaw(S.webserver, 'src/config/webserver.ts');
     project.copyRaw(S.errors, 'src/server/errors/index.ts');
     project.copyRaw(S.loggerAxiom, 'src/server/logger/axiom-transport.ts');

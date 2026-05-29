@@ -76,7 +76,7 @@ export const env = createEnv({
   emptyStringAsUndefined: true,
 });
 
-function parseOrigins(value: string | undefined): string[] {
+function parseOrigins(value) {
   if (!value?.trim()) return [];
   return value
     .split(',')
@@ -84,7 +84,7 @@ function parseOrigins(value: string | undefined): string[] {
     .filter(Boolean);
 }
 
-function resolveTrustedOrigins(): string[] {
+function resolveTrustedOrigins() {
   const parsed = parseOrigins(process.env.TRUSTED_ORIGINS);
   if (parsed.length > 0) return parsed;
 
