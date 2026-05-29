@@ -7,13 +7,36 @@ Enable **“Include events?”** in the CLI when you have **Better Auth + Drizzl
 
 ## What gets added
 
-| Path | Purpose |
-| ---- | ------- |
-| `src/server/db/schema/events.ts` | `events` table |
-| `src/repositories/` | `UserRepository`, `EventRepository` |
-| `src/server/db/firewall/create-user.ts` | Calls SQL function + blocks abusive IPs |
-| `drizzle/sql/firewall_create_user.sql` | Postgres function |
-| `scripts/apply-sql.ts` | Run raw SQL against `DATABASE_URL` |
+<table>
+  <thead>
+    <tr>
+      <th>Path</th>
+      <th>Purpose</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>src/server/db/schema/events.ts</code></td>
+      <td><code>events</code> table</td>
+    </tr>
+    <tr>
+      <td><code>src/repositories/</code></td>
+      <td><code>UserRepository</code>, <code>EventRepository</code></td>
+    </tr>
+    <tr>
+      <td><code>src/server/db/firewall/create-user.ts</code></td>
+      <td>Calls SQL function + blocks abusive IPs</td>
+    </tr>
+    <tr>
+      <td><code>drizzle/sql/firewall_create_user.sql</code></td>
+      <td>Postgres function</td>
+    </tr>
+    <tr>
+      <td><code>scripts/apply-sql.ts</code></td>
+      <td>Run raw SQL against <code>DATABASE_URL</code></td>
+    </tr>
+  </tbody>
+</table>
 
 ## How it works
 

@@ -16,10 +16,27 @@ When you run without `--default` in a terminal, the CLI walks through:
 
 ## Rules that matter
 
-| Choice | Effect |
-| ------ | ------ |
-| No database | Auth and events are **not** offered |
-| Auth without events | Standard Better Auth + Drizzle schema |
-| Auth + events | Adds `events` table, repositories, SQL scripts, `db:sql` scripts |
+<table>
+  <thead>
+    <tr>
+      <th>Choice</th>
+      <th>Effect</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>No database</td>
+      <td>Auth and events are <strong>not</strong> offered</td>
+    </tr>
+    <tr>
+      <td>Auth without events</td>
+      <td>Standard Better Auth + Drizzle schema</td>
+    </tr>
+    <tr>
+      <td>Auth + events</td>
+      <td>Adds <code>events</code> table, repositories, SQL scripts, <code>db:sql</code> scripts</td>
+    </tr>
+  </tbody>
+</table>
 
 Non-interactive environments (CI without TTY) get a **minimal** stack unless you pass `--default`.

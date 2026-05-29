@@ -1,6 +1,8 @@
 ---
 import type { Lang } from '../i18n';
 import { copy } from '../i18n';
+import FeatureIcon from './FeatureIcon.astro';
+import CliPreview from './CliPreview.astro';
 import PageShell from './PageShell.astro';
 
 interface Props {
@@ -10,9 +12,11 @@ interface Props {
 const { lang } = Astro.props;
 const t = copy[lang];
 const prefix = lang === 'pt-br' ? '/pt-br' : '';
+const copyLabel = lang === 'pt-br' ? 'Copiar comando' : 'Copy command';
+const copiedLabel = lang === 'pt-br' ? 'Copiado' : 'Copied';
 ---
 
-<PageShell lang={lang} title="madda">
+<PageShell lang={lang}>
   <main>
     <section class="hero">
       <p class="badge">@madda/app · CLI</p>
@@ -28,20 +32,46 @@ const prefix = lang === 'pt-br' ? '/pt-br' : '';
       </div>
       <div class="terminal" aria-label="install command">
         <code>{t.install}</code>
-        <button type="button" data-copy={t.install} class="copy">Copy</button>
+        <button
+          type="button"
+          data-copy={t.install}
+          data-label-copy={copyLabel}
+          data-label-copied={copiedLabel}
+          class="copy"
+          aria-label={copyLabel}
+        >
+          <svg class="icon copy-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect width="14" height="14" x="8" y="8" rx="2" ry="2"></rect>
+            <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path>
+          </svg>
+          <svg class="icon check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M20 6 9 17l-5-5"></path>
+          </svg>
+        </button>
       </div>
     </section>
 
+    <section class="section about" id="about">
+      <div class="about-copy">
+        <h2>{t.aboutTitle}</h2>
+        {t.aboutParagraphs.map((paragraph) => <p class="muted">{paragraph}</p>)}
+      </div>
+      <CliPreview lang={lang} />
+    </section>
+
     <section class="section">
-      <h2>{t.stackTitle}</h2>
+      <h2>{t.stackTitle} <span class="dot">!</span></h2>
       <p class="muted">{t.stackSub}</p>
       <div class="grid">
         {
           t.features.map((f) => (
-            <article class="card">
-              <h3>{f.name}</h3>
+            <a class="card link" href={f.url} target="_blank" rel="noreferrer">
+              <div class="card-head">
+                <FeatureIcon icon={f.icon} />
+                <h3>{f.name}</h3>
+              </div>
               <p>{f.desc}</p>
-            </article>
+            </a>
           ))
         }
       </div>
@@ -72,9 +102,13 @@ const prefix = lang === 'pt-br' ? '/pt-br' : '';
       const text = btn.getAttribute('data-copy');
       if (!text) return;
       await navigator.clipboard.writeText(text);
-      btn.textContent = 'Copied!';
+      const copiedLabel = btn.getAttribute('data-label-copied') ?? 'Copied';
+      const copyLabel = btn.getAttribute('data-label-copy') ?? 'Copy';
+      btn.classList.add('copied');
+      btn.setAttribute('aria-label', copiedLabel);
       setTimeout(() => {
-        btn.textContent = 'Copy';
+        btn.classList.remove('copied');
+        btn.setAttribute('aria-label', copyLabel);
       }, 1500);
     });
   });
@@ -93,6 +127,10 @@ const prefix = lang === 'pt-br' ? '/pt-br' : '';
   .hero {
     padding: 4rem 0 3rem;
     text-align: center;
+  }
+
+  .dot {
+    color: #a78bfa;
   }
 
   .badge {
@@ -166,27 +204,83 @@ const prefix = lang === 'pt-br' ? '/pt-br' : '';
     background: #18181b;
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 0.65rem;
-    padding: 0.85rem 1rem;
+    padding: 0.85rem 1.2rem;
     font-family: 'JetBrains Mono', monospace;
-    font-size: 0.9rem;
+    font-size: 1.2rem;
+    margin-top: 22px;
   }
 
   .copy {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     background: transparent;
     border: 1px solid rgba(255, 255, 255, 0.15);
     color: #a1a1aa;
     border-radius: 0.35rem;
-    padding: 0.25rem 0.5rem;
+    padding: 0.35rem;
     cursor: pointer;
-    font-size: 0.75rem;
+    line-height: 0;
+    transition: color 0.15s, border-color 0.15s;
+  }
+
+  .copy:hover {
+    color: #fafafa;
+    border-color: rgba(255, 255, 255, 0.25);
+  }
+
+  .copy.copied {
+    color: #a78bfa;
+    border-color: rgba(167, 139, 250, 0.45);
+  }
+
+  .copy .check-icon {
+    display: none;
+  }
+
+  .copy.copied .copy-icon {
+    display: none;
+  }
+
+  .copy.copied .check-icon {
+    display: block;
   }
 
   .section {
     padding: 3rem 0;
   }
 
+  .about {
+    display: grid;
+    gap: 2.5rem;
+    align-items: center;
+  }
+
+  @media (min-width: 960px) {
+    .about {
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+    }
+  }
+
+  .about-copy h2 {
+    font-size: clamp(1.75rem, 4vw, 2.75rem);
+    letter-spacing: -0.03em;
+    margin: 0 0 1rem;
+    line-height: 1.15;
+  }
+
+  .about-copy .muted {
+    max-width: none;
+    margin: 0 0 1rem;
+  }
+
+  .about-copy .muted:last-child {
+    margin-bottom: 0;
+  }
+
   .section h2 {
-    font-size: 1.75rem;
+    font-size: 2.4rem;
     letter-spacing: -0.03em;
     margin: 0 0 0.5rem;
   }
@@ -211,8 +305,15 @@ const prefix = lang === 'pt-br' ? '/pt-br' : '';
     padding: 1.25rem;
   }
 
+  .card-head {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.5rem;
+  }
+
   .card h3 {
-    margin: 0 0 0.5rem;
+    margin: 0;
     font-size: 1.05rem;
   }
 

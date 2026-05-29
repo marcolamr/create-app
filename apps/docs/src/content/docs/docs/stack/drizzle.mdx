@@ -5,11 +5,32 @@ description: Postgres local, Neon, and db scripts.
 
 ## Providers
 
-| CLI choice | Driver | Notes |
-| ---------- | ------ | ----- |
-| PostgreSQL (local) | `postgres` | Generates `start-database.sh` |
-| Neon | `@neondatabase/serverless` | Use Neon connection string in `DATABASE_URL` |
-| None | — | No Drizzle files |
+<table>
+  <thead>
+    <tr>
+      <th>CLI choice</th>
+      <th>Driver</th>
+      <th>Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>PostgreSQL (local)</td>
+      <td><code>postgres</code></td>
+      <td>Generates <code>start-database.sh</code></td>
+    </tr>
+    <tr>
+      <td>Neon</td>
+      <td><code>@neondatabase/serverless</code></td>
+      <td>Use Neon connection string in <code>DATABASE_URL</code></td>
+    </tr>
+    <tr>
+      <td>None</td>
+      <td>—</td>
+      <td>No Drizzle files</td>
+    </tr>
+  </tbody>
+</table>
 
 ## Scripts (when Drizzle is enabled)
 

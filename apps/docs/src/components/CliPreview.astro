@@ -1,0 +1,306 @@
+---
+import type { CliPreviewLine, Lang } from '../i18n';
+import { CLI_BANNER } from '../cli-banner';
+import { copy } from '../i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const lines = copy[lang].cliPreview;
+---
+
+<div
+  class="cli-preview"
+  data-lines={JSON.stringify(lines)}
+  data-banner={CLI_BANNER}
+  aria-hidden="true"
+>
+  <div class="cli-chrome">
+    <span class="dot red"></span>
+    <span class="dot yellow"></span>
+    <span class="dot green"></span>
+  </div>
+  <div class="cli-body">
+    <div class="cli-output"></div>
+  </div>
+</div>
+
+<script>
+  import type { CliPreviewLine } from '../i18n';
+
+  const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
+  async function typeText(
+    el: HTMLElement,
+    text: string,
+    charDelay: number,
+  ): Promise<void> {
+    for (const char of text) {
+      el.textContent = (el.textContent ?? '') + char;
+      await sleep(charDelay);
+    }
+  }
+
+  function createLine(className?: string): HTMLDivElement {
+    const line = document.createElement('div');
+    line.className = ['cli-line', className].filter(Boolean).join(' ');
+    return line;
+  }
+
+  function createBanner(text: string): HTMLPreElement {
+    const banner = document.createElement('pre');
+    banner.className = 'cli-banner';
+    banner.textContent = text;
+    return banner;
+  }
+
+  async function runCliPreview(root: HTMLElement, lines: CliPreviewLine[]) {
+    const body = root.querySelector('.cli-output');
+    if (!body) return;
+
+    const bannerText = root.dataset.banner ?? '';
+    body.textContent = '';
+
+    for (const entry of lines) {
+      if (entry.type === 'command') {
+        const line = createLine('cli-command');
+        body.append(line);
+        await typeText(line, entry.text, 28);
+        await sleep(300);
+        if (bannerText) {
+          body.append(createBanner(bannerText));
+          await sleep(500);
+        }
+        continue;
+      }
+
+      if (entry.type === 'intro') {
+        const line = createLine('cli-intro');
+        body.append(line);
+        await typeText(line, entry.text, 18);
+        await sleep(300);
+        continue;
+      }
+
+      if (entry.type === 'prompt') {
+        const line = createLine('cli-prompt');
+        const question = document.createElement('span');
+        const answer = document.createElement('span');
+        answer.className = 'cli-answer';
+        line.append(question, answer);
+        body.append(line);
+        await typeText(question, entry.text, 16);
+        await sleep(200);
+        await typeText(answer, ` ${entry.answer}`, 22);
+        await sleep(350);
+        continue;
+      }
+
+      if (entry.type === 'success') {
+        const line = createLine('cli-success');
+        body.append(line);
+        await typeText(line, entry.text, 16);
+        await sleep(300);
+        continue;
+      }
+
+      if (entry.type === 'outro') {
+        const line = createLine('cli-outro');
+        body.append(line);
+        await typeText(line, entry.text, 20);
+        await sleep(1200);
+      }
+    }
+
+    await sleep(800);
+    void runCliPreview(root, lines);
+  }
+
+  function initCliPreviews() {
+    document.querySelectorAll<HTMLElement>('.cli-preview[data-lines]').forEach((root) => {
+      if (root.dataset.running === 'true') return;
+      root.dataset.running = 'true';
+
+      const raw = root.dataset.lines;
+      if (!raw) return;
+
+      let lines: CliPreviewLine[];
+      try {
+        lines = JSON.parse(raw) as CliPreviewLine[];
+      } catch {
+        return;
+      }
+
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      if (reducedMotion) {
+        const body = root.querySelector('.cli-output');
+        if (!body) return;
+
+        const bannerText = root.dataset.banner ?? '';
+
+        for (const entry of lines) {
+          const line = createLine(
+            entry.type === 'command'
+              ? 'cli-command'
+              : entry.type === 'intro'
+                ? 'cli-intro'
+                : entry.type === 'success'
+                  ? 'cli-success'
+                  : entry.type === 'outro'
+                    ? 'cli-outro'
+                    : 'cli-prompt',
+          );
+
+          if (entry.type === 'prompt') {
+            line.innerHTML = `${entry.text}<span class="cli-answer"> ${entry.answer}</span>`;
+          } else {
+            line.textContent = entry.text;
+          }
+
+          body.append(line);
+
+          if (entry.type === 'command' && bannerText) {
+            body.append(createBanner(bannerText));
+          }
+        }
+        return;
+      }
+
+      void runCliPreview(root, lines);
+    });
+  }
+
+  initCliPreviews();
+  document.addEventListener('astro:page-load', initCliPreviews);
+</script>
+
+<style>
+  .cli-preview {
+    width: 100%;
+    max-width: 36rem;
+    margin-inline: auto;
+    overflow: hidden;
+    border-radius: 0.75rem;
+    border: 1px solid rgba(167, 139, 250, 0.2);
+    background: rgba(255, 255, 255, 0.04);
+    box-shadow:
+      0 0 0 1px rgba(255, 255, 255, 0.03),
+      0 24px 48px rgba(0, 0, 0, 0.35);
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 0.72rem;
+    line-height: 1.55;
+    color: #fafafa;
+  }
+
+  @media (min-width: 640px) {
+    .cli-preview {
+      font-size: 0.8rem;
+    }
+  }
+
+  .cli-chrome {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.85rem 1rem 0.65rem;
+  }
+
+  .dot {
+    width: 0.65rem;
+    height: 0.65rem;
+    border-radius: 999px;
+  }
+
+  .dot.red {
+    background: #ef4444;
+  }
+
+  .dot.yellow {
+    background: #fbbf24;
+  }
+
+  .dot.green {
+    background: #22c55e;
+  }
+
+  .cli-body {
+    min-height: 20rem;
+    max-height: 26rem;
+    overflow: hidden;
+    padding: 0 0.75rem 1.25rem;
+  }
+
+  @media (min-width: 768px) {
+    .cli-body {
+      min-height: 24rem;
+      max-height: 28rem;
+      padding-inline: 1rem;
+    }
+  }
+
+  .cli-output :global(.cli-banner),
+  .cli-output :global(.cli-line) {
+    margin-bottom: 0.35rem;
+  }
+
+  .cli-output :global(.cli-banner) {
+    margin: 0.15rem 0 0.45rem;
+    padding: 0;
+    border: 0;
+    font-family: inherit;
+    font-size: 0.42rem;
+    line-height: 1.08;
+    white-space: pre;
+    overflow: hidden;
+    background: linear-gradient(
+      90deg,
+      #c4b5fd 0%,
+      #60a5fa 35%,
+      #4ade80 65%,
+      #f472b6 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  @media (min-width: 640px) {
+    .cli-output :global(.cli-banner) {
+      font-size: 0.48rem;
+    }
+  }
+
+  .cli-output :global(.cli-line) {
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+
+  .cli-output :global(.cli-command) {
+    color: #fafafa;
+  }
+
+  .cli-output :global(.cli-intro) {
+    color: #a78bfa;
+    margin-top: 0.25rem;
+  }
+
+  .cli-output :global(.cli-prompt) {
+    color: #e4e4e7;
+  }
+
+  .cli-output :global(.cli-answer) {
+    color: #60a5fa;
+  }
+
+  .cli-output :global(.cli-success) {
+    color: #4ade80;
+  }
+
+  .cli-output :global(.cli-outro) {
+    color: #a78bfa;
+    margin-top: 0.5rem;
+  }
+</style>

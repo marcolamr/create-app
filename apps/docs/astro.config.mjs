@@ -3,6 +3,9 @@ import { defineConfig } from 'astro/config';
 
 export default defineConfig({
   site: 'https://madda.dev',
+  markdown: {
+    smartypants: { dashes: false },
+  },
   build: {
     concurrency: 1,
   },
