@@ -31,11 +31,15 @@
     "changeset": "changeset",
     "release": "changeset version",
     "pub:beta": "pnpm --filter @madda/app pub:beta",
-    "pub:release": "pnpm --filter @madda/app pub:release"
+    "pub:release": "pnpm --filter @madda/app pub:release",
+    "deps:check": "ncu --deep",
+    "deps:update": "ncu --deep -u",
+    "deps:interactive": "ncu --deep -i"
   },
   "devDependencies": {
     "@changesets/cli": "^2.31.0",
     "@repo/prettier-config": "workspace:*",
+    "npm-check-updates": "^22.2.1",
     "prettier": "^3.8.3",
     "turbo": "^2.9.16",
     "typescript": "5.9.2"

@@ -189,6 +189,9 @@ pnpm build:docs    # apps/docs/dist → deploy Vercel
 | `pnpm test` | Testes do CLI (Vitest) |
 | `pnpm test:coverage` | Testes + cobertura (atualiza badges no README) |
 | `pnpm format` | Prettier no monorepo |
+| `pnpm deps:check` | Lista atualizações disponíveis (todos os `package.json` do monorepo + template) |
+| `pnpm deps:update` | Atualiza versões nos `package.json` (`ncu --deep -u`; depois rode `pnpm install`) |
+| `pnpm deps:interactive` | Mesmo que `deps:update`, escolhendo pacote a pacote |
 
 ### Rodar o CLI localmente
 
