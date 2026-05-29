@@ -27,6 +27,12 @@
     "check-types": {
       "dependsOn": ["^check-types"]
     },
+    "test": {
+      "cache": false
+    },
+    "test:coverage": {
+      "cache": false
+    },
     "dev": {
       "cache": false,
       "persistent": true

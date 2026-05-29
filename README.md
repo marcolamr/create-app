@@ -7,6 +7,18 @@
 [![pnpm](https://img.shields.io/badge/pnpm-9-F69220?logo=pnpm&logoColor=white)](https://pnpm.io/)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](#licença)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.9-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+<!-- coverage:start -->
+![coverage](https://img.shields.io/badge/coverage%3A%2089%25-yellowgreen?style=flat-square) ![statements](https://img.shields.io/badge/statements%3A%2089%25-yellowgreen?style=flat-square) ![branches](https://img.shields.io/badge/branches%3A%2088%25-yellowgreen?style=flat-square) ![functions](https://img.shields.io/badge/functions%3A%2088%25-yellowgreen?style=flat-square)
+
+| Métrica | Cobertura |
+|---------|-----------|
+| Linhas | 89% |
+| Statements | 89% |
+| Branches | 88% |
+| Functions | 88% |
+
+> Atualizado por `pnpm test:coverage`. Relatório HTML em `apps/cli/coverage/index.html`.
+<!-- coverage:end -->
 
 ```bash
 pnpm create @madda/app
@@ -164,6 +176,8 @@ pnpm install
 | `pnpm --filter @madda/app start` | Roda o CLI buildado |
 | `pnpm lint` | ESLint no monorepo |
 | `pnpm check-types` | Typecheck |
+| `pnpm test` | Testes do CLI (Vitest) |
+| `pnpm test:coverage` | Testes + cobertura (atualiza badges no README) |
 | `pnpm format` | Prettier no monorepo |
 
 ### Rodar o CLI localmente
@@ -198,6 +212,23 @@ pnpm pub:beta
 
 Publicação requer login npm com permissão na org **madda** e `publishConfig.access: public` (já configurado).
 
+### Testes
+
+O CLI usa [Vitest](https://vitest.dev/) com cobertura via `@vitest/coverage-v8`:
+
+```bash
+# Rodar testes
+pnpm test
+
+# Cobertura + atualizar badges/tabela no README
+pnpm test:coverage
+
+# Watch mode (só no pacote CLI)
+pnpm --filter @madda/app test:watch
+```
+
+Os testes cobrem validação de nomes, parsing de args, scaffold de templates (minimal, full stack, neon, auth), features, git e fluxo de criação de projeto. Relatório HTML: `apps/cli/coverage/index.html`.
+
 ---
 
 ## Stack técnica do CLI
@@ -214,7 +245,7 @@ Publicação requer login npm com permissão na org **madda** e `publishConfig.a
 1. Fork + branch
 2. `pnpm install`
 3. Faça suas alterações
-4. `pnpm lint && pnpm check-types && pnpm build:cli`
+4. `pnpm lint && pnpm check-types && pnpm test && pnpm build:cli`
 5. `pnpm changeset` (se for release)
 6. Abra um PR
 

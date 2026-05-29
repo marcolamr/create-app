@@ -24,6 +24,8 @@
     "format": "prettier --write \"**/*.{ts,tsx,md,json}\"",
     "format:check": "turbo run format:check",
     "check-types": "turbo run check-types",
+    "test": "turbo run test",
+    "test:coverage": "pnpm --filter @madda/app test:coverage && node scripts/update-readme-coverage.mjs",
     "changeset": "changeset",
     "release": "changeset version",
     "pub:beta": "pnpm --filter @madda/app pub:beta",
