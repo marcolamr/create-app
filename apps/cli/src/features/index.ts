@@ -1,7 +1,7 @@
 import type { Project } from '../core/project.js';
 import type { Feature } from '../core/types.js';
-import { authEventsFeature } from './auth-events.js';
 import { authFeature } from './auth.js';
+import { authEventsFeature } from './auth-events.js';
 import { baseFeature } from './base.js';
 import { drizzleFeature } from './drizzle.js';
 import { envFeature } from './env.js';

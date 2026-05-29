@@ -33,7 +33,22 @@ describe('applyFeatures', () => {
     await withTempDir(async (dir) => {
       await scaffoldWithFeatures(dir, 'full-app', defaultStack());
 
-      expect(fs.existsSync(path.join(dir, 'src/server/auth/config.ts'))).toBe(true);
+      const authDir = path.join(dir, 'src/server/auth');
+      expect(fs.existsSync(path.join(authDir, 'config.ts'))).toBe(true);
+      expect(fs.existsSync(path.join(authDir, 'default-user-features.ts'))).toBe(true);
+      expect(fs.existsSync(path.join(authDir, 'index.ts'))).toBe(true);
+      expect(fs.existsSync(path.join(authDir, 'client.ts'))).toBe(true);
+      expect(fs.existsSync(path.join(authDir, 'server.ts'))).toBe(true);
+      expect(fs.existsSync(path.join(authDir, 'plugins/sync-bearer-token.ts'))).toBe(
+        true,
+      );
+      expect(fs.existsSync(path.join(dir, 'src/app/api/auth/[...all]/route.ts'))).toBe(
+        true,
+      );
+      expect(fs.existsSync(path.join(dir, 'src/server/better-auth'))).toBe(false);
+      expect(fs.readFileSync(path.join(authDir, 'config.ts'), 'utf8')).toContain(
+        './default-user-features',
+      );
       expect(fs.existsSync(path.join(dir, 'drizzle.config.ts'))).toBe(true);
       expect(fs.existsSync(path.join(dir, 'start-database.sh'))).toBe(true);
       expect(fs.existsSync(path.join(dir, 'src/styles/globals.css'))).toBe(true);
@@ -41,6 +56,31 @@ describe('applyFeatures', () => {
       expect(fs.existsSync(path.join(dir, '.env'))).toBe(true);
       expect(fs.existsSync(path.join(dir, '.env.example'))).toBe(true);
       expect(fs.existsSync(path.join(dir, 'src/env.js'))).toBe(true);
+    });
+  });
+
+  it('does not scaffold auth without a database', async () => {
+    await withTempDir(async (dir) => {
+      await scaffoldWithFeatures(dir, 'no-db-auth', {
+        ...minimalStack(),
+        auth: true,
+      });
+
+      expect(fs.existsSync(path.join(dir, 'src/server/auth'))).toBe(false);
+      expect(fs.existsSync(path.join(dir, 'src/app/api/auth'))).toBe(false);
+    });
+  });
+
+  it('scaffolds auth schema without events when authEvents is false', async () => {
+    await withTempDir(async (dir) => {
+      await scaffoldWithFeatures(dir, 'auth-only', defaultStack());
+
+      expect(fs.existsSync(path.join(dir, 'src/server/db/schema/events.ts'))).toBe(false);
+      expect(
+        fs.readFileSync(path.join(dir, 'src/server/db/schema/index.ts'), 'utf8'),
+      ).not.toContain('./events');
+      expect(fs.existsSync(path.join(dir, 'drizzle/sql'))).toBe(false);
+      expect(fs.existsSync(path.join(dir, 'src/repositories'))).toBe(false);
     });
   });
 
@@ -66,17 +106,21 @@ describe('applyFeatures', () => {
         authEvents: true,
       });
 
-      expect(fs.existsSync(path.join(dir, 'src/server/auth/default-user-features.ts'))).toBe(
+      expect(
+        fs.existsSync(path.join(dir, 'src/server/auth/default-user-features.ts')),
+      ).toBe(true);
+      expect(fs.existsSync(path.join(dir, 'src/server/db/schema/events.ts'))).toBe(true);
+      expect(
+        fs.readFileSync(path.join(dir, 'src/server/db/schema/index.ts'), 'utf8'),
+      ).toContain('./events');
+      expect(fs.existsSync(path.join(dir, 'drizzle/sql/firewall_create_user.sql'))).toBe(
         true,
       );
-      expect(fs.existsSync(path.join(dir, 'src/server/db/schema/events.ts'))).toBe(true);
-      expect(fs.readFileSync(path.join(dir, 'src/server/db/schema/index.ts'), 'utf8')).toContain(
-        './events',
-      );
-      expect(fs.existsSync(path.join(dir, 'drizzle/sql/firewall_create_user.sql'))).toBe(true);
       expect(fs.existsSync(path.join(dir, 'scripts/apply-sql.ts'))).toBe(true);
       expect(fs.existsSync(path.join(dir, 'src/repositories/index.ts'))).toBe(true);
-      expect(fs.existsSync(path.join(dir, 'src/server/db/firewall/create-user.ts'))).toBe(true);
+      expect(fs.existsSync(path.join(dir, 'src/server/db/firewall/create-user.ts'))).toBe(
+        true,
+      );
 
       const pkg = fs.readJsonSync(path.join(dir, 'package.json')) as {
         scripts: Record<string, string>;

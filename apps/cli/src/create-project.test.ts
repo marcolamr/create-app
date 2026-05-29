@@ -43,6 +43,12 @@ describe('createProject', () => {
 
         expect(pkg.name).toBe('generated-app');
         expect(pkg.MaddaMetadata?.initVersion).toMatch(/^\d+\.\d+\.\d+/);
+        expect(fs.existsSync(path.join(projectDir, 'src/server/auth/config.ts'))).toBe(
+          true,
+        );
+        expect(fs.existsSync(path.join(projectDir, 'src/server/better-auth'))).toBe(
+          false,
+        );
       } finally {
         process.chdir(cwd);
       }

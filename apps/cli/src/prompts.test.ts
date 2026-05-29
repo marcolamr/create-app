@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { DEFAULT_STACK, MINIMAL_STACK, runCli } from './prompts.js';
+import { MINIMAL_STACK, runCli } from './prompts.js';
 
 describe('runCli', () => {
   it('uses default stack with --default', async () => {
@@ -13,7 +13,13 @@ describe('runCli', () => {
     ]);
 
     expect(input.appName).toBe('demo-app');
-    expect(input.stack).toEqual(DEFAULT_STACK);
+    expect(input.stack).toEqual({
+      auth: true,
+      authEvents: false,
+      drizzle: 'postgres',
+      tailwind: true,
+      eslint: true,
+    });
     expect(input.flags.noGit).toBe(true);
     expect(input.flags.defaults).toBe(true);
   });

@@ -8,14 +8,14 @@
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](#licença)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.9-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 <!-- coverage:start -->
-![coverage](https://img.shields.io/badge/coverage%3A%2089%25-yellowgreen?style=flat-square) ![statements](https://img.shields.io/badge/statements%3A%2089%25-yellowgreen?style=flat-square) ![branches](https://img.shields.io/badge/branches%3A%2088%25-yellowgreen?style=flat-square) ![functions](https://img.shields.io/badge/functions%3A%2088%25-yellowgreen?style=flat-square)
+![coverage](https://img.shields.io/badge/coverage%3A%2089%25-yellowgreen?style=flat-square) ![statements](https://img.shields.io/badge/statements%3A%2089%25-yellowgreen?style=flat-square) ![branches](https://img.shields.io/badge/branches%3A%2087%25-yellowgreen?style=flat-square) ![functions](https://img.shields.io/badge/functions%3A%2098%25-brightgreen?style=flat-square)
 
 | Métrica | Cobertura |
 |---------|-----------|
 | Linhas | 89% |
 | Statements | 89% |
-| Branches | 88% |
-| Functions | 88% |
+| Branches | 87% |
+| Functions | 98% |
 
 > Atualizado por `pnpm test:coverage`. Relatório HTML em `apps/cli/coverage/index.html`.
 <!-- coverage:end -->
